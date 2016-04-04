@@ -1,0 +1,8 @@
+{
+  "name" : "fridai-bot",
+  "version" : "0.0.1",
+  "description" : "fridai bot platform",
+  "dependencies" : {
+    "mime" : "~1.2.7"
+  }
+}
