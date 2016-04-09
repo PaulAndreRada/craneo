@@ -1,4 +1,49 @@
-var http = require("http");
+var app = require('express')();
+var http = require("http").Server(app);
+var io = require('socket.io')(http);
+
+var __dirname = '/Users/Viki/gitHubReps/fridai-bot/public'
+
+app.get('/', function(req, res){ 
+ res.sendFile(__dirname + '/index.html');
+});
+
+io.on('connection',function(socket){ 
+  console.log('a user connected');
+
+  // log a new  msg
+  socket.on('chat message', function(msg){ 
+    console.log('message:' + msg);
+  });
+
+  // log disconnect
+  socket.on('disconnect',function(){
+    console.log('user disconnected');
+  });
+});
+
+http.listen(3000, function(){ 
+  console.log('listening on *:3000');
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* basic server 
 var fs = require('fs');
 var path = require('path');
 var mime = require('mime');
@@ -45,3 +90,4 @@ var server = http.createServer(function(request, response){
 });
 
 var port_number = server.listen(process.env.PORT || 3000);
+*/
