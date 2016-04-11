@@ -2,17 +2,28 @@ var app = require('express')();
 var http = require("http").Server(app);
 var io = require('socket.io')(http);
 
+// import the bot
+var config = require('./bot/config');
+var Bot = require('./bot')(config);
+
 var __dirname = '/Users/Viki/gitHubReps/fridai-bot/public'
 
+// render the index
 app.get('/', function(req, res){ 
  res.sendFile(__dirname + '/index.html');
 });
+
+// activate the bot
+Bot.listen(socket);
+
+
 
 io.on('connection',function(socket){ 
   console.log('a user connected');
 
   // log a new  msg
   socket.on('chat message', function(msg){ 
+
     console.log('message:' + msg);
   });
 

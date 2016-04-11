@@ -2,17 +2,31 @@ var app = require('express')();
 var http = require("http").Server(app);
 var io = require('socket.io')(http);
 
+// import the bot
+var config = require('./bot/config');
+var Bot = require('./bot/bot')(config);
+
 var __dirname = '/Users/Viki/gitHubReps/fridai-bot/public'
 
-app.get('/', function(req, res){ 
+// render the index
+app.get('/', function(req, res){
  res.sendFile(__dirname + '/index.html');
 });
 
-io.on('connection',function(socket){ 
+
+io.on('connection',function(socket){
   console.log('a user connected');
+
+  // activate the bot
+  Bot.listen(socket);
+
+  // log disconnect
+  socket.on('disconnect',function(){
+    console.log('user disconnected');
+  });
 });
 
-http.listen(3000, function(){ 
+http.listen(3000, function(){
   console.log('listening on *:3000');
 });
 
@@ -33,24 +47,24 @@ http.listen(3000, function(){
 
 
 
-/* basic server 
+/* basic server
 var fs = require('fs');
 var path = require('path');
 var mime = require('mime');
 
-function send404(response){ 
+function send404(response){
   response.writeHead(404, {"Content-Type" : "text/plain"});
   response.write("Error 404: resource not found");
   response.end();
 }
 
-function sendPage( response, filePath, fileContents ){ 
-  response.writeHead(200, {"Content-Type" : mime.lookup(path.basename(filePath))}); 
+function sendPage( response, filePath, fileContents ){
+  response.writeHead(200, {"Content-Type" : mime.lookup(path.basename(filePath))});
   response.end(fileContents);
-}  
+}
 
 function serverWorking(response, absPath) {
-  fs.exists(absPath, function(exist){ 
+  fs.exists(absPath, function(exist){
     if(exist) {
       fs.readFile(absPath, function(err, data){
 	      if(err){  send404(response); }
@@ -64,13 +78,13 @@ function serverWorking(response, absPath) {
 
 
 // Create the server
-var server = http.createServer(function(request, response){ 
-  // set the filepath 
+var server = http.createServer(function(request, response){
+  // set the filepath
   // if the slash changes
   var filePath = false;
-  if(request.url == '/'){ 
+  if(request.url == '/'){
     filePath = "public/index.html";
-  } else { 
+  } else {
     filePath = "public" + request.url;
   }
   // set the absolute path

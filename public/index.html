@@ -9,9 +9,11 @@
       var socket = io();
       var $form = $('form');
       $form.submit(function(e){
-      console.log('running');
       e.preventDefault();
-          socket.emit('chat message', $('#m').val());
+          socket.emit('chat message', {
+            msg: $('#m').val(),
+            sender : 'Sombody'
+          });
           $('#m').val('');
           return false;
       });
@@ -19,7 +21,7 @@
 
 
     </script>
-    <title>Socket.IO chat</title>
+    <title>friday test</title>
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
       body { font: 13px Helvetica, Arial; }
