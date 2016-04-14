@@ -16,7 +16,7 @@ module.exports = function(config){
       // the listening channel's event to be called
       socket.on( self.listeningChannel, function(packege){
         self.listening = true;
-        console.log('socket triggered');
+
         self.setMessage({
           msg : packege.msg,
           sender : packege.sender
@@ -36,16 +36,31 @@ module.exports = function(config){
       }
 
       self.testReport();
+      self.readMessage();
     },
     testReport : function(){
-      console.log(self.sender + "said: ", self.msg );
+      console.log(self.sender + " said: ", self.msg );
     },
     readMessage : function(){
-      // search for all the possible commands the message
-        // if one hits, search for all the possible actions fo that command
-          // if non hit do the basic command?
-      // If no commands are hit respond with the possible actions concatinated
+      var msg = self.msg,
+        command = commands;
+
+      // go trough the available abilities
+      for( var i=0; i<command.length; i++){
+        // go trough that abilitie's commands
+        for( var index=0; index<command[i].commands.length; index++ ){
+          // if the command matches trigger it's ability
+          // and pass it the context
+          if ( msg.match( command[i].commands[index] ) ){
+            command[i].ability({ msg: self.msg, from: self.sender });
+            break;
+          };
+        }
+      }
     },
+    buildContext: function(){
+      //return all the data needed for an action to work
+    }
   }// self
  return self;
 };
