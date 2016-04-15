@@ -11,7 +11,7 @@ module.exports = function(config){
     sender : config.sendersName || 'prada',
     msg: '',
     listening: false,
-    abilityMode: false,
+    ability: new Object(),
     listen : function( socket ){
       // listens to the specified socket for
       // the listening channel's event to be called
@@ -35,28 +35,38 @@ module.exports = function(config){
     readMessage : function(){
       var msg = bot.msg,
         roster = AbilityRoster,
-        context = bot.buildContext();
-        console.log( msg );
+        context = bot.buildContext(),
+        bubbbleUp;
+
       // go trough the available abilities
       for( var i=0; i<roster.length; i++){
         // go trough that abilitie's commands
         for( var index=0; index<roster[i].commands.length; index++ ){
           // if the command matches trigger it's ability
-          // and pass it the context
+          // and pass it the context and save it's returning context
           if ( msg.match( roster[i].commands[index] ) ){
-            roster[i].ability(context);
+            bubbleUp = roster[i].ability(context);
             break;
           };
         }
       }
+      bot.setAbility( bubbleUp );
+    },
+    setAbility: function( abilityContext ){
+        if( abilityContext ){
+          bot.ability = {
+            mode: abilityContext.mode,
+            actions : abilityContext.actions
+          };
+        } else { console.log('no mode'); }
     },
     buildContext: function(){
-      // Creates the object to pass down to all abilities
+      // Creates the object that gets passed down to all abilities
       return {
         msg: bot.msg,
         from: bot.sender,
         mode: bot.abilityMode
-      }
+      };
     }
   }// bot
  return bot;
