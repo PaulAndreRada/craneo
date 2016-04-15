@@ -8,30 +8,25 @@ module.exports = function(config){
     botName : config.name || 'friday',
     canSpeak : config.canSpeak || true,
     listeningChannel : config.listeningChannel || 'chat message',
-    sendersName : config.sendersName || 'prada',
-    listening : false,
+    sender : config.sendersName || 'prada',
     msg: '',
+    listening: false,
+    abilityMode: false,
     listen : function( socket ){
       // listens to the specified socket for
       // the listening channel's event to be called
-      socket.on( bot.listeningChannel, function(packege){
+      socket.on( bot.listeningChannel, function(msg){
         bot.listening = true;
-        bot.setMessage({
-          msg : packege.msg,
-          sender : packege.sender
-        });
+        bot.setMessage(msg);
         bot.readMessage();
       });
     },
     setMessage : function(msg){
-      // Repeats all the actions nessesary
-      // after a mssage has been received
-      // Set's the new msg and sender into the options
-      bot.sender = msg.sender || bot.sender;
-      if( !msg.msg ){
+      // Set's the new msg into the options
+      if( !msg ){
         console.log("You did not pass a new msg");
       } else {
-        bot.msg = msg.msg
+        bot.msg = msg;
       }
     },
     testReport : function(){
@@ -39,8 +34,9 @@ module.exports = function(config){
     },
     readMessage : function(){
       var msg = bot.msg,
-        roster = AbilityRoster;
-
+        roster = AbilityRoster,
+        context = bot.buildContext();
+        console.log( msg );
       // go trough the available abilities
       for( var i=0; i<roster.length; i++){
         // go trough that abilitie's commands
@@ -48,14 +44,19 @@ module.exports = function(config){
           // if the command matches trigger it's ability
           // and pass it the context
           if ( msg.match( roster[i].commands[index] ) ){
-            roster[i].ability({ msg: bot.msg, from: bot.sender });
+            roster[i].ability(context);
             break;
           };
         }
       }
     },
     buildContext: function(){
-      //return all the data needed for an action to work
+      // Creates the object to pass down to all abilities
+      return {
+        msg: bot.msg,
+        from: bot.sender,
+        mode: bot.abilityMode
+      }
     }
   }// bot
  return bot;
