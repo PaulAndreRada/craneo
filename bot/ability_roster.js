@@ -1,4 +1,5 @@
-var abilities = require('./abilities');
+//all available abilities
+var greet = require('./ability_modules/greet');
 
 // Links the commands to the ability
 // multiple commands can have the same ability
@@ -9,7 +10,7 @@ module.exports = [
       /^(.*?(\byo\b)[^$]*)$/i,
       /^(.*?(\bsup\b)[^$]*)$/i
     ],
-    "ability" : abilities.greet,
+    "ability" : greet,
     "hasMode": false,
   },
   {
