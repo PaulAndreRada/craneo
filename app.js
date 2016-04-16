@@ -4,7 +4,7 @@ var io = require('socket.io')(http);
 
 // import the bot
 var config = require('./bot/config');
-var Bot = require('./bot/bot')(config);
+var Bot = require('./bot/reader')(config);
 
 var __dirname = '/Users/Viki/gitHubReps/fridai-bot/public'
 
@@ -18,6 +18,7 @@ io.on('connection',function(socket){
   console.log('a user connected');
 
   // activate the bot
+  // why not just call setState? make the bot not rely on any socket framework
   Bot.listen(socket);
 
   // log disconnect

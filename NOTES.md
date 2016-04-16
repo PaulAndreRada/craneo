@@ -3,12 +3,15 @@ Just did:
     searches the msg for a command and triggers the appropriate ability for that command.
       It does this by reading the commands array of objects
 
+
+      1-Make the bot.js script easier to read
+        -change self to this
+        -Change the name of the commands module to be the abiltity_index... ability nest
+      -build the context package
+
 Todo:
-  1-Make the bot.js script easier to read
-    -change self to this
-    -Change the name of the commands module to be the abiltity_index... ability nest
+
   2-Create support for mode heavy functions
-    -build the context package
     -ex: sender: make note
          bot: what would you like your note to say?
          { bot expects only note info }  
