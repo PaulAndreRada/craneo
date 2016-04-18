@@ -3,5 +3,5 @@
 module.exports = {
   name : 'friday',
   canSpeak : 'true',
-  listeningChannel : 'chat message'
+  listeningChannel : 'chat message',
 }
