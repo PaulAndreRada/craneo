@@ -41,12 +41,12 @@ module.exports = function(config){
       });
     },
     buildContext: function(){
-      return {
-        "message" : bot.state.message,
+      var botContext = { bot: {
+        'message': bot.state.message,
         "responseList" : bot.state.responseList,
-        "from" : {"name" : 'the dude'},
-        "clientContext" : bot.state.clientContext
-      }
+      }}
+      return mergeObjects( botContext,
+        { client: bot.state.clientContext });
     },
     listen: function(msg, context){
       bot.setState({
