@@ -1,7 +1,9 @@
 
 
 module.exports = function(context){
-  var error = "context is safe";
+  var error = "context is safe",
+    context = context.bot;
+
   // Check for context
   if( typeof context !== 'object' ){
     error = "The context argument needs to be an object";
@@ -24,14 +26,6 @@ module.exports = function(context){
     error = "The responseList prop needs to be an array of objects";
     throw error;
   }
-  // Check for a missing sender name
-  if( !context.from ){
-    error =  "The from prop is not available";
-    throw error;
-  // Check for the senders name is not a string
-  } else if( typeof context.from !== 'object' ){
-    error =  "The from prop needs to be an object with all the user info a response could need";
-    throw error;
-  }
+
   return error;
 }// exports

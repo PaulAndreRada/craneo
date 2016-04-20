@@ -10,14 +10,23 @@ Next:
       //-length of response list
   //-make the responder object as a promise
   //-add a command not found function
-
   //-change the name of the abilities to a responseList
   //-add a response for a command not found
   //-create a mergeObject helper for the state
   //-add the mergeObject function to the setState function
+  //-create and clientContext object to pass stuff (like sockets to the response)
 
-  -create and Aux object to pass stuff (like sockets to the response)
-  -create an option to change context mid conversation
+  //-Build the bot and client objects inside the context object that gets passed down from the bot.
+  //-Create error handlers and debug logs for the reader and responder functions
+
+  -Seperate into a repository of only the bot
+  -Write the basic docs
+  -Write the basic wiki
+  -Make the generic bot template on sketch
+  -Make a super quick page for the skeleton bot
+
+  Stuff left for after the main test
+  -create an option to change context mid conversation, or a clearing of a context over time.
   -response list should bubble up a response object and responseList ???? <--- try doing a whole note function before this
   -add a error handler for the wrong responseList format (and array with no object or an array with the wrong object)- basically make a responseListErrorParser
 
@@ -25,12 +34,6 @@ Next:
   - change file names for the normal-convention
   -add promises where async is needed
   -make a notes ability
-
-
-
-Commit
-created an insane amount of error returns for easier debugging of the reader function
-created the responder module as a promise
 
 
 

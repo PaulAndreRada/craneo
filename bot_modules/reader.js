@@ -1,30 +1,40 @@
 var responder = require('./responder');
-var contextParser = require('./helpers/context-parser');
 var commandNotFound = require('./responses/command-not-found');
+//helpers
+var contextParser = require('./helpers/context-parser');
+var ERROR_LOGS = require('./helpers/error-logs');
 
 module.exports = function(context){
 
     // Make sure the context argument is safe
     try{ contextParser(context) }
     catch(error){ console.log('Reader Error: ', error); }
+    // Make sure the responseList is safe
+    try{ context.bot.responseList }
+    catch(error){ console.log('Reader Error: ', error); }
 
     var findResponse = function(){
-      var list = context.responseList,
+      var list = context.bot.responseList,
           length = list.length,
-          message = context.message,
+          message = context.bot.message,
           ability, commands;
+      // Error logs
       // Go trough the available ability objects
       // inside the responseList
       for( var i=0; i<length; i++ ){
-        ability = list[i],
+        ability = list[i];
         commands = ability.commands;
+        // if the command is undefined re-assign it to an empty array
+        // to avoid and error
+        if (!commands){
+          commands = []
+          console.log('Reader Error: ' + ERROR_LOGS.COMMAND_PROP_MISSING );
+        }
         // go trough that ability objects' possible commands
         for( var index=0; index<commands.length; index++ ){
           // if the command matches,
-          // return it's response function
           if ( message.match( commands[index] ) ){
-              // response is a function
-              // that returns a new responseList
+              // return it's response function
               return ability.response;
           }
         }
@@ -40,6 +50,9 @@ module.exports = function(context){
       // a new responseList in return
       return responder(response, context);
     } else {
-      return false;
+      // if the response is undefined
+      console.log("Reader Error: "+ ERROR_LOGS.RESPONSE_MAYBE_UNDEFINED );
+      console.log("Reader Error: " + ERROR_LOGS.RESPONSE_LIST_RESET );
+      return 'endAbility';
     }
 }
