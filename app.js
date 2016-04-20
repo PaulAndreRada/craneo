@@ -23,7 +23,7 @@ io.on('connection',function(socket){
 
 
   socket.on( "chat message", function(msg){
-   bot.listen(msg);
+   bot.listen(msg, {socket: socket});
   });
 
   // log disconnect

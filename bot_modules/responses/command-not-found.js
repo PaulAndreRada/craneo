@@ -11,4 +11,5 @@ module.exports = function(){
         console.log(list[i].highlightCommands[index]);
       }
   };
+  return 'endAbility';
 };

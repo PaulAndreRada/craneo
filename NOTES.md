@@ -13,7 +13,9 @@ Next:
 
   //-change the name of the abilities to a responseList
   //-add a response for a command not found
-  -create a mergeObject helper for the state
+  //-create a mergeObject helper for the state
+  //-add the mergeObject function to the setState function
+
   -create and Aux object to pass stuff (like sockets to the response)
   -create an option to change context mid conversation
   -response list should bubble up a response object and responseList ???? <--- try doing a whole note function before this
