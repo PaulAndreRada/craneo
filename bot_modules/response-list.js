@@ -1,5 +1,5 @@
-//all available abilities
-// default functions
+// All available abilities
+// Default functions
 var greet = require('./responses/greet');
 var askName = require('./responses/ask-name');
 

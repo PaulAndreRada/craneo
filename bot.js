@@ -10,10 +10,9 @@ module.exports = function(config){
     props: {
       botName : config.name || 'friday',
       listeningEvent : config.listeningEvent || 'chat message',
-      sender : config.sendersName || 'prada',
     },
     state: {
-      message: false,
+      message: '',
       responseList: ResponseList,
       listening: false,
       responded: false,
@@ -21,17 +20,12 @@ module.exports = function(config){
     },
     setState:function(nextState){
       // if "endAbility" has been returned
+      // Top level merge
+      bot.state = mergeObjects(bot.state, nextState);
       // Reset the responseList
-      var endAbility = nextState.responseList === 'endAbility'?
-                       ResponseList : nextState.responseList;
-      // Update the state
-      bot.state = {
-        message: nextState.message || bot.state.message,
-        responseList : endAbility || bot.state.responseList,
-        listening: nextState.listening || bot.state.listening,
-        responded: nextState.responded || bot.state.responded,
-        process: nextState.process || bot.state.process
-      };
+      bot.state.responseList = bot.state.responseList === 'endAbility'?
+        ResponseList:  bot.state.responseList;
+      // log the state to help debugging
       //console.log( bot.state );
     },
     handleMessage: function(){
@@ -50,13 +44,15 @@ module.exports = function(config){
       return {
         "message" : bot.state.message,
         "responseList" : bot.state.responseList,
-        "from" : {"user" : 'something'}
+        "from" : {"name" : 'the dude'},
+        "clientContext" : bot.state.clientContext
       }
     },
-    listen: function(msg){
+    listen: function(msg, context){
       bot.setState({
           message: msg,
-          process : 'listening'
+          process : 'listening',
+          clientContext : context || false,
         });
       bot.handleMessage();
     },
