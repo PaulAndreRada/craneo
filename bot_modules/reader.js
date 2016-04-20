@@ -1,5 +1,6 @@
 var responder = require('./responder');
-var contextParser = require('./helpers/contextParser');
+var contextParser = require('./helpers/context-parser');
+var commandNotFound = require('./responses/command-not-found');
 
 module.exports = function(context){
 
@@ -28,18 +29,12 @@ module.exports = function(context){
           }
         }
       }
-      return handleNotFound();
+      return commandNotFound;
     };
 
-    var handleNotFound = function(){
-      console.log('command not found');
-      return false;
-      // in the near future it should return a response
-      // with all the commands available
-    };
 
+    // Read
     var response = findResponse();
-
     if( response ){
       // pass to the responder expecting
       // a new responseList in return

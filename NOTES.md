@@ -10,7 +10,12 @@ Next:
       //-length of response list
   //-make the responder object as a promise
   //-add a command not found function
-  -add a response for a command not found
+
+  //-change the name of the abilities to a responseList
+  //-add a response for a command not found
+  -create a mergeObject helper for the state
+  -create and Aux object to pass stuff (like sockets to the response)
+  -create an option to change context mid conversation
   -response list should bubble up a response object and responseList ???? <--- try doing a whole note function before this
   -add a error handler for the wrong responseList format (and array with no object or an array with the wrong object)- basically make a responseListErrorParser
 

@@ -1,4 +1,4 @@
-var askName = require('./askName');
+var askName = require('./ask-name');
 
 // Greets the user
 module.exports = function(context){

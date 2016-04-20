@@ -1,5 +1,5 @@
 
 module.exports = function(){
-  console.log('I should ask your name right?');
+  console.log('no, your name first');
   return 'endAbility';
 }

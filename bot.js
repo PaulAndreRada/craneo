@@ -1,10 +1,10 @@
-
 var Reader = require('./bot_modules/reader');
-var AbilityList = require('./bot_modules/abilities');
+var ResponseList = require('./bot_modules/response-list');
+// helpers
+mergeObjects = require('./bot_modules/helpers/merge-objects');
 
 module.exports = function(config){
   var bot = new Object();
-
 
   bot = {
     props: {
@@ -14,7 +14,7 @@ module.exports = function(config){
     },
     state: {
       message: false,
-      responseList: AbilityList,
+      responseList: ResponseList,
       listening: false,
       responded: false,
       process: "init",
@@ -23,7 +23,7 @@ module.exports = function(config){
       // if "endAbility" has been returned
       // Reset the responseList
       var endAbility = nextState.responseList === 'endAbility'?
-                       AbilityList : nextState.responseList;
+                       ResponseList : nextState.responseList;
       // Update the state
       bot.state = {
         message: nextState.message || bot.state.message,
