@@ -1,6 +1,0 @@
-{
-  "name": "craneo",
-  "version": "1.0.0",
-  "description": "A bare bones bot framework created to scale the creation of any interface, by the use of messaging.",
-  "dependencies": {}
-}
