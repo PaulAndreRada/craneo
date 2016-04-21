@@ -1,9 +1,6 @@
 {
-  "name": "fridai-bot",
-  "version": "0.0.1",
-  "description": "fridai bot platform",
-  "dependencies": {
-    "mime": "~1.2.7",
-    "socket.io": "^1.4.5"
-  }
+  "name": "craneo",
+  "version": "1.0.0",
+  "description": "A bare bones bot framework created to scale the creation of any interface, by the use of messaging.",
+  "dependencies": {}
 }
