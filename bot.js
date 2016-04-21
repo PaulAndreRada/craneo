@@ -3,14 +3,10 @@ var ResponseList = require('./bot_modules/response-list');
 // helpers
 mergeObjects = require('./bot_modules/helpers/merge-objects');
 
-module.exports = function(config){
+module.exports = function(){
   var bot = new Object();
 
   bot = {
-    props: {
-      botName : config.name || 'friday',
-      listeningEvent : config.listeningEvent || 'chat message',
-    },
     state: {
       message: '',
       responseList: ResponseList,
