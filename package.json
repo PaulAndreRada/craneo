@@ -1,0 +1,24 @@
+{
+  "name": "craneo",
+  "version": "1.0.1",
+  "description": "A bare bones bot framework created to scale the creation of any interface, by the use of messaging.",
+  "main": "bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PaulAndreRada/craneo.git"
+  },
+  "keywords": [
+    "bot",
+    "skeleton",
+    "basic"
+  ],
+  "author": "\"Paul Rada <paulriverarada@gmail.com> (http://paulrada.com)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PaulAndreRada/craneo/issues"
+  },
+  "homepage": "https://github.com/PaulAndreRada/craneo#readme"
+}
