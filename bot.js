@@ -3,7 +3,7 @@ var ResponseList = require('./bot_modules/response-list');
 // helpers
 mergeObjects = require('./bot_modules/helpers/merge-objects');
 
-module.exports = function(){
+module.exports = function(config){
   var bot = new Object();
 
   bot = {
@@ -51,9 +51,11 @@ module.exports = function(){
           clientContext : context || false,
         });
       bot.handleMessage();
-    },
-    direct:function(){},
+    }
   } // bot
+
+  // merge the config into the state
+  bot.setState(config);
 
   return bot;
 }// export
