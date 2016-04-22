@@ -1,5 +1,6 @@
 var responder = require('./responder');
-var commandNotFound = require('./responses/command-not-found');
+var noCommandSet = require('./responses/no-command-set');
+
 //helpers
 var contextParser = require('./helpers/context-parser');
 var ERROR_LOGS = require('./helpers/error-logs');
@@ -17,13 +18,15 @@ module.exports = function(context){
       var list = context.bot.responseList,
           length = list.length,
           message = context.bot.message,
-          ability, commands;
-      // Error logs
+          ability, commands, notFound;
       // Go trough the available ability objects
       // inside the responseList
       for( var i=0; i<length; i++ ){
         ability = list[i];
         commands = ability.commands;
+        // save the users commandNotFound response
+        notFound = ability.name === "commandNotFound"?
+          ability.response : noCommandSet;
         // if the command is undefined re-assign it to an empty array
         // to avoid and error
         if (!commands){
@@ -39,7 +42,7 @@ module.exports = function(context){
           }
         }
       }
-      return commandNotFound;
+      return notFound;
     };
 
 

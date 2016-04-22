@@ -1,5 +1,5 @@
 
 module.exports = function(){
-  console.log('no, you tell me your name first!');
+  console.log('This is an example of a chaining response');
   return 'endAbility';
 }

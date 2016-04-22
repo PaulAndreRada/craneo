@@ -5,11 +5,13 @@ mergeObjects = require('./bot_modules/helpers/merge-objects');
 
 module.exports = function(config){
   var bot = new Object();
+  var defaultResponse = config.responseList;
 
   bot = {
     state: {
       message: '',
-      responseList: ResponseList,
+      responseNamesList: false,
+      responseList: defaultResponse,
       listening: false,
       responded: false,
       process: "init",
@@ -20,7 +22,7 @@ module.exports = function(config){
       bot.state = mergeObjects(bot.state, nextState);
       // Reset the responseList
       bot.state.responseList = bot.state.responseList === 'endAbility'?
-        ResponseList:  bot.state.responseList;
+        defaultResponse:  bot.state.responseList;
       // log the state to help debugging
       //console.log( bot.state );
     },
@@ -30,7 +32,7 @@ module.exports = function(config){
       // and save whatever bubbles up
       // The bubbleUp hould be the following response list
       bubbleUp = Reader( context );
-      // Set the next responseList
+      // Set the next responseList or nameList
       bot.setState({
         "responseList": bubbleUp,
         "process": "response returned"
@@ -52,7 +54,7 @@ module.exports = function(config){
         });
       bot.handleMessage();
     }
-  } // bot
+  }
 
   // merge the config into the state
   bot.setState(config);
