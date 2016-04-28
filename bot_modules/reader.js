@@ -76,7 +76,7 @@ var reader = function(context){
       // if the response is undefined
       console.log("Reader Error: "+ ERROR_LOGS.RESPONSE_MAYBE_UNDEFINED );
       console.log("Reader Error: " + ERROR_LOGS.RESPONSE_LIST_RESET );
-      return 'endAbility';
+      return false;
     }
 }
 
