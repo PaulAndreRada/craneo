@@ -35,7 +35,7 @@ module.exports = function(config){
       // Set the next responseList or nameList
       bot.setState({
         "responseList": bubbleUp,
-        "process": "response returned"
+        "process": "response returned",
       });
     },
     buildContext: function(){
@@ -54,7 +54,7 @@ module.exports = function(config){
         });
       bot.handleMessage();
     }
-  }
+  } // bot
 
   // merge the config into the state
   bot.setState(config);
