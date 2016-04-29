@@ -1,4 +1,5 @@
 # Craneo - A Bare-bones bot structure for Node
+NOTE: THIS README IS STILL UNDER CONSTRUCTION.</br>
 A Minimalist command and response bot structure that scales for any project.
 
 
