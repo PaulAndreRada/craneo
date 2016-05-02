@@ -16,7 +16,7 @@
     <div class="wrapper">
       <header>
         <h1>Craneo</h1>
-        <p>A Bare Bones Bot Platform</p>
+        <p>A Bare Bones Bot Platform for node.js</p>
 
         <p class="view"><a href="https://github.com/PaulAndreRada/craneo">View the Project on GitHub <small>PaulAndreRada/craneo</small></a></p>
 
@@ -31,7 +31,27 @@
         <h3>
 <a id="install" class="anchor" href="#install" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Install</h3>
 
+<p>If you have node installed you can simply use npm to download it.</p>
+
 <div class="highlight highlight-source-shell"><pre>npm install craneo</pre></div>
+
+<h3>
+<a id="quick-start" class="anchor" href="#quick-start" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Quick Start</h3>
+
+<p></p>
+
+<h1>
+<a id="create-a-response" class="anchor" href="#create-a-response" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Create a Response</h1>
+
+<p>Create a <code>hello-world.js</code> function in the main directory.
+This function will serve as the first response your bot will have.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> <span class="pl-en">helloWorld</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">context</span>){ 
+  <span class="pl-en">console</span>.<span class="pl-c1">log</span>( <span class="pl-s"><span class="pl-pds">'</span>Hello world<span class="pl-pds">'</span></span> );
+  <span class="pl-k">return</span> <span class="pl-c1">false</span>
+}</pre></div>
+
+<p></p>
 
 <h3>
 <a id="designer-templates" class="anchor" href="#designer-templates" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Designer Templates</h3>
