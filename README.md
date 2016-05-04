@@ -1,5 +1,5 @@
 ##Craneo
-### A Minimalist Bot frameowork for node.js
+### A Minimalist Bot Framework for node.js
 
 ### What it is
 The base command parsing structure for any small to medium sized bot you intend to make.
