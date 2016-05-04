@@ -38,7 +38,7 @@ var responseList = [
   {
     name: 'helloWorld',
     commands: [ /^(.*?(\hello\b)[^$]*)$/i ],
-    response: hello,
+    response: hello
   }
 ]; 
 
@@ -124,12 +124,12 @@ var responseList = [
       { 
 	name: ‘Gundam Wing’
 	response: function(){ console.log(‘if we weren’t idiots, we wouldn’t be soldiers.’); },
-	command: […],
+	command: […]
       },
       { 
 	name: ‘MSG’
 	response: function(){ console.log(’The OG Gundam’); 
-	command: […], 
+	command: […]
       }
     ]
 ]
@@ -146,11 +146,11 @@ var responseList = [
   { 
    name: 'commandNotFound',
    response: function(context){...},
-   commands: [],
+   commands: []
   } 
 ]
 ```
 
 
-Created by Paul Rada 
+Created by Paul Rada </br>
 Licence MIT
