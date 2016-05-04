@@ -15,8 +15,7 @@ If you have node.js installed you can simply use npm to download it.
 npm install craneo
 ```
 
-###Quick Start
-Here’s the quickest way to get a bot going with the least amount of steps. 
+##Quick Start
 </br>
 ###Create a response
 Create a `hello-world.js` file inside the main directory.</br>
@@ -66,6 +65,8 @@ Now you're ready to listen to any message by calling the listen method inside yo
 bot.listen('hello');
 ```
 
+
+## General Docs
 ### Passing down a context
 All responses will get passed a context argument containing the bot's variables and the [your]client's arguments. The `context.bot` object will pass down the contents necessary for the bot to function; Mainly the message content `context.bot.message` and the current response list `context.bot.responseList`.  The `context.client` object will pass down whatever contents you pass to the bot’s `listen` method.
 ```js
@@ -151,3 +152,5 @@ var responseList = [
 ```
 
 
+Created by Paul Rada 
+Licence MIT
