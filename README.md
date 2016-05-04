@@ -2,11 +2,11 @@
 ### A Minimalist Bot Framework for node.js
 
 ### What it is
-The base command parsing structure for any small to medium sized bot you intend to make.
+The basic command parsing structure for any small to medium sized bot you intend to make.
 Craneo serves as a minimalistic back-end bot framework that specifically reads commands and triggers responses with the use of regular expressions. 
 
 ### What it’s not
-Craneo is not an out of the box intelligence for your commands, it’s a structure for parsing a command. In other word’s - Here’s the skull, you supply the brain.
+Craneo is not an out of the box natural language intelligence for your commands, it’s a structure for parsing different types of commands. In other word’s - Here’s the skull, you supply the brain.
 
 
 ###Install
@@ -31,14 +31,14 @@ var helloWorld = function(context){
 
 ###Create a list for your responses
 In order for the bot to read your response you'll need to create a `response-list.js` file.
-Inside `response-list.js` create the main response list array and require the `hello-world.js` response function into this file. It will serve as your root response list for all of your bot’s commands and responses.  
+Inside `response-list.js` create the main response list array and require the `hello-world.js` response function into this file. It will serve as the root response list for all of your bot’s commands and responses.  
 ```js
 var helloWorld = require('./hello-world.js');
 
 var responseList = [
   {
     name: 'helloWorld',
-    commands: [ /^(.*?(\Hello\b)[^$]*)$/i ],
+    commands: [ /^(.*?(\hello\b)[^$]*)$/i ],
     response: hello,
   }
 ]; 
@@ -49,15 +49,15 @@ module.exports = responseList;
 
 ### Create a commands list for your response
 The `commands:` inside a response object must be supplied using regular expressions. </br>Craneo uses regular expressions to match any command supplied inside the command list with the received message.
-</br> By adding the regular expresion `/^(.*?(\Hello\b)[^$]*)$/i` inside our command list, we set up our bot to respond with our hello world function to any commands that include the string 'Hello'.
+</br> By adding the regular expresion `/^(.*?(\hello\b)[^$]*)$/i` inside our command list, we set up our bot to respond with our hello world function to any commands that include the string 'Hello'.
 
 ### Listen to messages
-In your main app folder you can require Craneo and your `response-list.js` file.
+In your main app folder require Craneo along with your `response-list.js` file.
 ```js
 var Craneo = require('craneo');
 var responseList = require('./response-list');
 ```
-Initiate your own instance of a Craneo with by passing it your responseList array inside of an object. 
+Initiate your own instance of a Craneo by passing it your `responseList` array inside of an object with a property named responseList. 
 ```js
 var bot = Craneo({ responseList: responseList }); 
 ```
@@ -67,21 +67,22 @@ bot.listen('hello');
 ```
 
 ### Passing down a context
-All responses will get passed two context objects. The `context.bot` object will pass down the contents necessary for the bot to function; Mainly the message content `context.bot.message` and a responseList array `context.bot.responseList`.  The `context.bot` object will pass down whatever contents you pass to the bot’s `listen` method.
+All responses will get passed a context argument containing some of the bot's variables and the [your]client's arguments. The `context.bot` object will pass down the contents necessary for the bot to function; Mainly the message content `context.bot.message` and the current response list `context.bot.responseList`.  The `context.client` object will pass down whatever contents you pass to the bot’s `listen` method.
 ```js
-
+// Make your own context variables
 var responseArgs  = {
   userId : ‘rx-78g’, 
   name:  ‘Amuro Ray’
   type: ‘Gundam’
 }
+// Pass them to the response
 bot.listen( ‘hello’, responseArgs );
 ```
 
 ## Response Types
 
 ### Basic Response
-As shown in our `hello-world.js` function, a basic response has a series of commands that can match to trigger a basic response function. These function types usually return false. This tells the bot to use the default `responseList` array for the following responses. As with all other response types the a basic response will be passed a context argument with the objects bot and client.
+As shown in our `hello-world.js` function, a basic response has a series of commands that can match with a users message to trigger a basic response function. These function types usually return false. This tells the bot to use the default `responseList` array for the following responses. As with all other response types the a basic response will be passed a context argument with the objects bot and client.
 
 ### Response Chain
 Think of a response chain as a conversation, once a response matches it returns a list or possible responses that are used instead of the default response.  This closes the bots context for a specific set of actions.  In order to end the response chain, provide a function with `return false`, this will tell Craneo to go back to using the default responseList.
@@ -122,11 +123,11 @@ var responseList = [
       { 
 	name: ‘Gundam Wing’
 	response: function(){ console.log(‘if we weren’t idiots, we wouldn’t be soldiers.’); },
-	command: [ … ],
+	command: […],
       },
       { 
 	name: ‘MSG’
-	response: function(){ console.log(’The OG’); 
+	response: function(){ console.log(’The OG Gundam’); 
 	command: […], 
       }
     ]
