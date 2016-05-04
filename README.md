@@ -72,7 +72,7 @@ All responses will get passed a context argument containing the bot's variables 
 ```js
 // Make your own context variables
 var responseArgs  = {
-  userId : ‘RX-78G’, 
+  userId : ‘RX78G’, 
   name:  ‘Amuro Ray’
   type: ‘Gundam’
 }
