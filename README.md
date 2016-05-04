@@ -67,11 +67,11 @@ bot.listen('hello');
 ```
 
 ### Passing down a context
-All responses will get passed a context argument containing some of the bot's variables and the [your]client's arguments. The `context.bot` object will pass down the contents necessary for the bot to function; Mainly the message content `context.bot.message` and the current response list `context.bot.responseList`.  The `context.client` object will pass down whatever contents you pass to the bot’s `listen` method.
+All responses will get passed a context argument containing the bot's variables and the [your]client's arguments. The `context.bot` object will pass down the contents necessary for the bot to function; Mainly the message content `context.bot.message` and the current response list `context.bot.responseList`.  The `context.client` object will pass down whatever contents you pass to the bot’s `listen` method.
 ```js
 // Make your own context variables
 var responseArgs  = {
-  userId : ‘rx-78g’, 
+  userId : ‘RX-78G’, 
   name:  ‘Amuro Ray’
   type: ‘Gundam’
 }
@@ -82,10 +82,10 @@ bot.listen( ‘hello’, responseArgs );
 ## Response Types
 
 ### Basic Response
-As shown in our `hello-world.js` function, a basic response has a series of commands that can match with a users message to trigger a basic response function. These function types usually return false. This tells the bot to use the default `responseList` array for the following responses. As with all other response types the a basic response will be passed a context argument with the objects bot and client.
+As shown in our `hello-world.js` function, a basic response has a series of commands that can match with a users message to trigger a basic response function. These function types should return false. Returning false tells the bot to use the default `responseList` array for the following responses. As with all other response types a basic response will be passed a context argument with the objects bot and client.
 
 ### Response Chain
-Think of a response chain as a conversation, once a response matches it returns a list or possible responses that are used instead of the default response.  This closes the bots context for a specific set of actions.  In order to end the response chain, provide a function with `return false`, this will tell Craneo to go back to using the default responseList.
+Think of a response chain as a conversation, once a response matches it returns a list or possible responses that are used instead of the default response.  This narrows the bot's available responses for a specific set of actions.  In order to end the response chain, provide a function with `return false`, this will tell Craneo to go back to using the default responseList.
 ```js
 var responseChain = function( context ){ 
 
@@ -109,7 +109,7 @@ var responseChain = function( context ){
 ```
 
 ### Read Chain
-A Read Chain is used when you want to parse a message in detail. By returning the string `’read’` inside of any response property along with a `responseList` property inside that same object the bot will read the message supplied a second time. This time using the responseList supplied inside of the matching object. This can be done in multiple sequences in order to get the most accurate reading of a message. 
+A Read Chain is used when you want to parse a message in detail. By returning the string `’read’` inside of a response along with a `responseList` property inside that same object the bot will read the message supplied a second time. This time using the responseList supplied inside of the matching object. This can be done in multiple sequences in order to get the most accurate reading of a message. 
 
 
 ```js 
@@ -134,10 +134,20 @@ var responseList = [
 ]
 
 ### Important Note
-The response list is read in order, repeating a command will result (regex formatting and context) in a matching of the first command of that type only. If there is a need for a command that reads `’Show Gundam Wing’` and a command in a different object that reads `’Show MSG’` then use a read chain with a command of `’show’` with a responseList property that holds the `Gundam Wing` response object and the `MSG` response object; As shown in the example above.
+The response list is read in order, repeating a command [regex formatting and context] will result in a matching of the first command of that type only. If there is a need for a command that reads `’Show Gundam Wing’` and a command in a different object that reads `’Show MSG’` then use a read chain with a command of `’show’` then pass it a response list that holds the `Gundam Wing` response object and the `MSG` response object; As shown in the example above. This will match the 'show' command first then re-read the same message in order to match the following command.
 
 
 ###Command Not Found
-Craneo’s parser expects a response named `’commandNotFound’` to be found inside any response list provided. This allows you to supply a custom function that will be triggered whenever the user adds a command that does not match with your response list’s options.
+Craneo’s parser expects a response named `’commandNotFound’` inside any response list provided. This allows you to supply a custom function that will be triggered whenever the user adds a command that does not match with your response list’s options. This response should use the same formating as any other response object, but does not need any commands inside the commands array. 
+
+```js
+var responseList = [ 
+  { 
+   name: 'commandNotFound',
+   response: function(context){...},
+   commands: [],
+  } 
+]
+```
 
 
