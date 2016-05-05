@@ -48,7 +48,7 @@ Craneo serves as a minimalistic back-end bot framework that specifically reads c
 <div class="highlight highlight-source-shell"><pre>npm install craneo</pre></div>
 
 <h2>
-<a id="quick-start" class="anchor block_section" href="#quick-start" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Quick Start</h2>
+<a id="quick-start" class="anchor" href="#quick-start" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Quick Start</h2>
 
 <p></p>
 
@@ -58,7 +58,7 @@ Craneo serves as a minimalistic back-end bot framework that specifically reads c
 <p>Create a <code>hello-world.js</code> file inside the main directory.
 This function will serve as the first response your bot will have.</p>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> <span class="pl-en">helloWorld</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">context</span>){
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> <span class="pl-en">helloWorld</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">context</span>){ 
   <span class="pl-en">console</span>.<span class="pl-c1">log</span>( <span class="pl-s"><span class="pl-pds">'</span>Hello world<span class="pl-pds">'</span></span> );
   <span class="pl-k">return</span> <span class="pl-c1">false</span>
 }</pre></div>
@@ -79,7 +79,7 @@ Inside <code>response-list.js</code> create the main response list array and req
     commands<span class="pl-k">:</span> [<span class="pl-sr"> <span class="pl-pds">/</span><span class="pl-k">^</span>(<span class="pl-c1">.</span><span class="pl-k">*?</span>(<span class="pl-cce">\h</span>ello<span class="pl-k">\b</span>)<span class="pl-c1">[<span class="pl-k">^</span>$]</span><span class="pl-k">*</span>)<span class="pl-k">$</span><span class="pl-pds">/</span>i</span> ],
     response<span class="pl-k">:</span> hello
   }
-];
+]; 
 
 <span class="pl-c1">module</span>.<span class="pl-smi">exports</span> <span class="pl-k">=</span> responseList;</pre></div>
 
@@ -108,7 +108,7 @@ Inside <code>response-list.js</code> create the main response list array and req
 <div class="highlight highlight-source-js"><pre><span class="pl-smi">bot</span>.<span class="pl-en">listen</span>(<span class="pl-s"><span class="pl-pds">'</span>hello<span class="pl-pds">'</span></span>);</pre></div>
 
 <h2>
-<a id="general-docs" class="anchor block_section" href="#general-docs" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>General Docs</h2>
+<a id="general-docs" class="anchor" href="#general-docs" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>General Docs</h2>
 
 <h3>
 <a id="passing-down-a-context" class="anchor" href="#passing-down-a-context" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Passing down a context</h3>
@@ -117,7 +117,7 @@ Inside <code>response-list.js</code> create the main response list array and req
 
 <div class="highlight highlight-source-js"><pre><span class="pl-c">// Make your own context variables</span>
 <span class="pl-k">var</span> responseArgs  <span class="pl-k">=</span> {
-  userId <span class="pl-k">:</span> ‘<span class="pl-c1">RX78G</span>’,
+  userId <span class="pl-k">:</span> ‘<span class="pl-c1">RX78G</span>’, 
   name<span class="pl-k">:</span>  ‘Amuro Ray’
   type<span class="pl-k">:</span> ‘Gundam’
 }
@@ -125,7 +125,7 @@ Inside <code>response-list.js</code> create the main response list array and req
 <span class="pl-smi">bot</span>.<span class="pl-en">listen</span>( ‘hello’, responseArgs );</pre></div>
 
 <h2>
-<a id="response-types" class="anchor block_section" href="#response-types" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Response Types</h2>
+<a id="response-types" class="anchor" href="#response-types" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Response Types</h2>
 
 <h3>
 <a id="basic-response" class="anchor" href="#basic-response" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Basic Response</h3>
@@ -137,21 +137,21 @@ Inside <code>response-list.js</code> create the main response list array and req
 
 <p>Think of a response chain as a conversation, once a response matches it returns a list or possible responses that are used instead of the default response.  This narrows the bot's available responses for a specific set of actions.  In order to end the response chain, provide a function with <code>return false</code>, this will tell Craneo to go back to using the default responseList.</p>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> <span class="pl-en">responseChain</span> <span class="pl-k">=</span> <span class="pl-k">function</span>( <span class="pl-smi">context</span> ){
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> <span class="pl-en">responseChain</span> <span class="pl-k">=</span> <span class="pl-k">function</span>( <span class="pl-smi">context</span> ){ 
 
   <span class="pl-c">// do your response’s action</span>
-  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(‘response chain started’ );
+  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(‘response chain started’ ); 
 
   <span class="pl-c">// Return the following response objects to the bot in the same array format as the response list</span>
   <span class="pl-k">return</span> [
-    {
+    { 
       name<span class="pl-k">:</span> ‘foo’,
-      <span class="pl-en">response</span><span class="pl-k">:</span> <span class="pl-k">function</span>(){ <span class="pl-en">console</span>.<span class="pl-c1">log</span>(‘foo’); },
+      <span class="pl-en">response</span><span class="pl-k">:</span> <span class="pl-k">function</span>(){ <span class="pl-en">console</span>.<span class="pl-c1">log</span>(‘foo’); }, 
       commands<span class="pl-k">:</span> […]
     },
-    {
+    { 
       name<span class="pl-k">:</span> ‘bar’,
-      <span class="pl-en">response</span><span class="pl-k">:</span> <span class="pl-k">function</span>(){ <span class="pl-en">console</span>.<span class="pl-c1">log</span>(‘bar’); },
+      <span class="pl-en">response</span><span class="pl-k">:</span> <span class="pl-k">function</span>(){ <span class="pl-en">console</span>.<span class="pl-c1">log</span>(‘bar’); }, 
       commands<span class="pl-k">:</span> […]
     }
   ]
@@ -165,41 +165,43 @@ Inside <code>response-list.js</code> create the main response list array and req
 <div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> responseList <span class="pl-k">=</span> [
   {
     name<span class="pl-k">:</span> “show”,
-    response<span class="pl-k">:</span> ‘read’,
+    response<span class="pl-k">:</span> ‘read’, 
     command<span class="pl-k">:</span> [ … ],
-    responseList<span class="pl-k">:</span>
-    [
-      {
+    responseList<span class="pl-k">:</span> 
+    [ 
+      { 
     name<span class="pl-k">:</span> ‘Gundam Wing’
     <span class="pl-en">response</span><span class="pl-k">:</span> <span class="pl-k">function</span>(){ <span class="pl-en">console</span>.<span class="pl-c1">log</span>(‘<span class="pl-k">if</span> we weren’t idiots, we wouldn’t be soldiers.’); },
     command<span class="pl-k">:</span> […]
       },
-      {
+      { 
     name<span class="pl-k">:</span> ‘<span class="pl-c1">MSG</span>’
-    <span class="pl-en">response</span><span class="pl-k">:</span> <span class="pl-k">function</span>(){ <span class="pl-en">console</span>.<span class="pl-c1">log</span>(’The <span class="pl-c1">OG</span> Gundam’);
+    <span class="pl-en">response</span><span class="pl-k">:</span> <span class="pl-k">function</span>(){ <span class="pl-en">console</span>.<span class="pl-c1">log</span>(’The <span class="pl-c1">OG</span> Gundam’); 
     command<span class="pl-k">:</span> […]
       }
     ]
-]
-
-### Important Note
-The response list is read <span class="pl-k">in</span> order, repeating a command [regex formatting and context] will result <span class="pl-k">in</span> a matching <span class="pl-k">of</span> the first command <span class="pl-k">of</span> that type <span class="pl-smi">only</span>. <span class="pl-smi">If</span> there is a need <span class="pl-k">for</span> a command that reads <span class="pl-s"><span class="pl-pds">`</span>’Show Gundam Wing’<span class="pl-pds">`</span></span> and a command <span class="pl-k">in</span> a different object that reads <span class="pl-s"><span class="pl-pds">`</span>’Show MSG’<span class="pl-pds">`</span></span> then use a read chain <span class="pl-k">with</span> a command <span class="pl-k">of</span> <span class="pl-s"><span class="pl-pds">`</span>’show’<span class="pl-pds">`</span></span> then pass it a response list that holds the <span class="pl-s"><span class="pl-pds">`</span>Gundam Wing<span class="pl-pds">`</span></span> response object and the <span class="pl-s"><span class="pl-pds">`</span>MSG<span class="pl-pds">`</span></span> response object; As shown <span class="pl-k">in</span> the example <span class="pl-smi">above</span>. <span class="pl-smi">This</span> will match the <span class="pl-s"><span class="pl-pds">'</span>show<span class="pl-pds">'</span></span> command first then re<span class="pl-k">-</span>read the same message <span class="pl-k">in</span> order to match the following command.
-
-
-###Command Not Found
-Craneo’s parser expects a response named <span class="pl-s"><span class="pl-pds">`</span>’commandNotFound’<span class="pl-pds">`</span></span> inside any response list <span class="pl-smi">provided</span>. <span class="pl-smi">This</span> allows you to supply a custom <span class="pl-k">function</span> that will be triggered whenever the user adds a command that does not match with your response list’s options. This response should use the same formating as any other response object, but does not need any commands inside the commands array.
-
-```js
-var responseList = [
-  {
-   name: 'commandNotFound',
-   response: <span class="pl-k">function</span>(<span class="pl-smi">context</span>){<span class="pl-k">...</span>},
-   commands<span class="pl-k">:</span> []
-  }
 ]</pre></div>
 
-<p>Created by <a href="https://github.com/PaulAndreRada">Paul Rada</a>
-& Licenced under MIT</p>
+<h3>
+<a id="important-note" class="anchor" href="#important-note" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Important Note</h3>
+
+<p>The response list is read in order, repeating a command [regex formatting and context] will result in a matching of the first command of that type only. If there is a need for a command that reads <code>’Show Gundam Wing’</code> and a command in a different object that reads <code>’Show MSG’</code> then use a read chain with a command of <code>’show’</code> then pass it a response list that holds the <code>Gundam Wing</code> response object and the <code>MSG</code> response object; As shown in the example above. This will match the 'show' command first then re-read the same message in order to match the following command.</p>
+
+<h3>
+<a id="command-not-found" class="anchor" href="#command-not-found" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Command Not Found</h3>
+
+<p>Craneo’s parser expects a response named <code>’commandNotFound’</code> inside any response list provided. This allows you to supply a custom function that will be triggered whenever the user adds a command that does not match with your response list’s options. This response should use the same formating as any other response object, but does not need any commands inside the commands array. </p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> responseList <span class="pl-k">=</span> [ 
+  { 
+   name<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>commandNotFound<span class="pl-pds">'</span></span>,
+   <span class="pl-en">response</span><span class="pl-k">:</span> <span class="pl-k">function</span>(<span class="pl-smi">context</span>){<span class="pl-k">...</span>},
+   commands<span class="pl-k">:</span> []
+  } 
+]</pre></div>
+
+<p>Created by Paul Rada 
+Licence MIT</p>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/PaulAndreRada">PaulAndreRada</a></p>
@@ -207,6 +209,6 @@ var responseList = [
       </footer>
     </div>
     <script src="javascripts/scale.fix.js"></script>
-
+    
   </body>
 </html>
