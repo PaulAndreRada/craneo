@@ -47,10 +47,10 @@ Craneo serves as a minimalistic back-end bot framework that specifically reads c
 
 <div class="highlight highlight-source-shell"><pre>npm install craneo</pre></div>
 
+<p></p>
+
 <h2>
 <a id="quick-start" class="anchor" href="#quick-start" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Quick Start</h2>
-
-<p></p>
 
 <h3>
 <a id="create-a-response" class="anchor" href="#create-a-response" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Create a response</h3>
@@ -107,22 +107,7 @@ Inside <code>response-list.js</code> create the main response list array and req
 
 <div class="highlight highlight-source-js"><pre><span class="pl-smi">bot</span>.<span class="pl-en">listen</span>(<span class="pl-s"><span class="pl-pds">'</span>hello<span class="pl-pds">'</span></span>);</pre></div>
 
-<h2>
-<a id="general-docs" class="anchor" href="#general-docs" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>General Docs</h2>
-
-<h3>
-<a id="passing-down-a-context" class="anchor" href="#passing-down-a-context" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Passing down a context</h3>
-
-<p>All responses will get passed a context argument containing the bot's variables and the [your]client's arguments. The <code>context.bot</code> object will pass down the contents necessary for the bot to function; Mainly the message content <code>context.bot.message</code> and the current response list <code>context.bot.responseList</code>.  The <code>context.client</code> object will pass down whatever contents you pass to the bot’s <code>listen</code> method.</p>
-
-<div class="highlight highlight-source-js"><pre><span class="pl-c">// Make your own context variables</span>
-<span class="pl-k">var</span> responseArgs  <span class="pl-k">=</span> {
-  userId <span class="pl-k">:</span> ‘<span class="pl-c1">RX78G</span>’, 
-  name<span class="pl-k">:</span>  ‘Amuro Ray’
-  type<span class="pl-k">:</span> ‘Gundam’
-}
-<span class="pl-c">// Pass them to the response</span>
-<span class="pl-smi">bot</span>.<span class="pl-en">listen</span>( ‘hello’, responseArgs );</pre></div>
+<p></p>
 
 <h2>
 <a id="response-types" class="anchor" href="#response-types" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Response Types</h2>
@@ -186,6 +171,25 @@ Inside <code>response-list.js</code> create the main response list array and req
 <a id="important-note" class="anchor" href="#important-note" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Important Note</h3>
 
 <p>The response list is read in order, repeating a command [regex formatting and context] will result in a matching of the first command of that type only. If there is a need for a command that reads <code>’Show Gundam Wing’</code> and a command in a different object that reads <code>’Show MSG’</code> then use a read chain with a command of <code>’show’</code> then pass it a response list that holds the <code>Gundam Wing</code> response object and the <code>MSG</code> response object; As shown in the example above. This will match the 'show' command first then re-read the same message in order to match the following command.</p>
+
+<p></p>
+
+<h2>
+<a id="general-docs" class="anchor" href="#general-docs" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>General Docs</h2>
+
+<h3>
+<a id="passing-down-a-context" class="anchor" href="#passing-down-a-context" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Passing down a context</h3>
+
+<p>All responses will get passed a context argument containing the bot's variables and the [your]client's arguments. The <code>context.bot</code> object will pass down the contents necessary for the bot to function; Mainly the message content <code>context.bot.message</code> and the current response list <code>context.bot.responseList</code>.  The <code>context.client</code> object will pass down whatever contents you pass to the bot’s <code>listen</code> method.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-c">// Make your own context variables</span>
+<span class="pl-k">var</span> responseArgs  <span class="pl-k">=</span> {
+  userId <span class="pl-k">:</span> ‘<span class="pl-c1">RX78G</span>’, 
+  name<span class="pl-k">:</span>  ‘Amuro Ray’
+  type<span class="pl-k">:</span> ‘Gundam’
+}
+<span class="pl-c">// Pass them to the response</span>
+<span class="pl-smi">bot</span>.<span class="pl-en">listen</span>( ‘hello’, responseArgs );</pre></div>
 
 <h3>
 <a id="command-not-found" class="anchor" href="#command-not-found" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Command Not Found</h3>
