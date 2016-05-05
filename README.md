@@ -15,8 +15,9 @@ If you have node.js installed you can simply use npm to download it.
 npm install craneo
 ```
 
+</br></br>
 ##Quick Start
-</br>
+
 ###Create a response
 Create a `hello-world.js` file inside the main directory.</br>
 This function will serve as the first response your bot will have.
@@ -65,21 +66,7 @@ Now you're ready to listen to any message by calling the listen method inside yo
 bot.listen('hello');
 ```
 
-
-## General Docs
-### Passing down a context
-All responses will get passed a context argument containing the bot's variables and the [your]client's arguments. The `context.bot` object will pass down the contents necessary for the bot to function; Mainly the message content `context.bot.message` and the current response list `context.bot.responseList`.  The `context.client` object will pass down whatever contents you pass to the bot’s `listen` method.
-```js
-// Make your own context variables
-var responseArgs  = {
-  userId : ‘RX78G’, 
-  name:  ‘Amuro Ray’
-  type: ‘Gundam’
-}
-// Pass them to the response
-bot.listen( ‘hello’, responseArgs );
-```
-
+</br></br>
 ## Response Types
 
 ### Basic Response
@@ -137,6 +124,21 @@ var responseList = [
 ### Important Note
 The response list is read in order, repeating a command [regex formatting and context] will result in a matching of the first command of that type only. If there is a need for a command that reads `’Show Gundam Wing’` and a command in a different object that reads `’Show MSG’` then use a read chain with a command of `’show’` then pass it a response list that holds the `Gundam Wing` response object and the `MSG` response object; As shown in the example above. This will match the 'show' command first then re-read the same message in order to match the following command.
 
+
+</br></br>
+## General Docs
+### Passing down a context
+All responses will get passed a context argument containing the bot's variables and the [your]client's arguments. The `context.bot` object will pass down the contents necessary for the bot to function; Mainly the message content `context.bot.message` and the current response list `context.bot.responseList`.  The `context.client` object will pass down whatever contents you pass to the bot’s `listen` method.
+```js
+// Make your own context variables
+var responseArgs  = {
+  userId : ‘RX78G’, 
+  name:  ‘Amuro Ray’
+  type: ‘Gundam’
+}
+// Pass them to the response
+bot.listen( ‘hello’, responseArgs );
+```
 
 ###Command Not Found
 Craneo’s parser expects a response named `’commandNotFound’` inside any response list provided. This allows you to supply a custom function that will be triggered whenever the user adds a command that does not match with your response list’s options. This response should use the same formating as any other response object, but does not need any commands inside the commands array. 
