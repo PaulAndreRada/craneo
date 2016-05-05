@@ -2,11 +2,10 @@
 ### A Minimalist Bot Framework for node.js
 
 ### What it is
-The basic command parsing structure for any small to medium sized bot you intend to make.
-Craneo serves as a minimalistic back-end bot framework that specifically reads commands and triggers responses with the use of regular expressions. 
+The basic command and response structure for any small to medium sized bot you intend to make.
 
 ### What it’s not
-Craneo is not an out of the box natural language intelligence for your commands, it’s a structure for parsing different types of commands. In other word’s - Here’s the skull, you supply the brain.
+Craneo is not an out of the box natural language intelligence for your commands, it’s simply a structure for responding to different types of commands. In other words - Here’s the skull, you supply the brain.
 
 
 ###Install
@@ -31,7 +30,7 @@ var helloWorld = function(context){
 
 ###Create a list for your responses
 In order for the bot to read your response you'll need to create a `response-list.js` file.
-Inside `response-list.js` create the main response list array and require the `hello-world.js` response function into this file. It will serve as the root response list for all of your bot’s commands and responses.  
+Inside `response-list.js` create the main `responseList` array and import the `hello-world.js` response function into this file. It will serve as the root response list for all of your bot’s commands and responses.  
 ```js
 var helloWorld = require('./hello-world.js');
 
@@ -48,8 +47,8 @@ module.exports = responseList;
 </br>
 
 ### Create a commands list for your response
-The `commands:` inside a response object must be supplied using regular expressions. </br>Craneo uses regular expressions to match any command supplied inside the command list with the received message.
-</br> By adding the regular expresion `/^(.*?(\hello\b)[^$]*)$/i` inside our command list, we set up our bot to respond with our hello world function to any commands that include the string 'Hello'.
+The `commands` property inside a response object is an array that can be supplied any regular expressions. </br>Craneo uses these expressions to match any command supplied by the user with a response function of your choosing. 
+</br> By adding the regular expression `/^(.*?(\hello\b)[^$]*)$/i` inside the command array, we are connecting any messages with the word "hello" to the `helloWorld` function.
 
 ### Listen to messages
 In your main app folder require Craneo along with your `response-list.js` file.
@@ -73,7 +72,7 @@ bot.listen('hello');
 As shown in our `hello-world.js` function, a basic response has a series of commands that can match with a users message to trigger a basic response function. These function types should return false. Returning false tells the bot to use the default `responseList` array for the following responses. As with all other response types a basic response will be passed a context argument with the objects bot and client.
 
 ### Response Chain
-Think of a response chain as a conversation, once a response matches it returns a list or possible responses that are used instead of the default response.  This narrows the bot's available responses for a specific set of actions.  In order to end the response chain, provide a function with `return false`, this will tell Craneo to go back to using the default responseList.
+Think of a response chain as a conversation, once a response matches it returns a list or possible responses that are used instead of the default response.  This narrows the bot's available responses to a specific set of actions.  In order to end the response chain, provide a function with `return false`, this will tell Craneo to go back to using the default responseList.
 ```js
 var responseChain = function( context ){ 
 
@@ -154,5 +153,4 @@ var responseList = [
 ```
 
 
-Created by Paul Rada </br>
-Licence MIT
+Created by Paul Rada & Licensed under MIT
