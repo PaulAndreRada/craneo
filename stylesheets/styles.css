@@ -55,10 +55,10 @@
 }
 
 body {
-  background-color: #fff;
+  background-color: #000;
   padding:50px;
   font: 14px/1.5 "Noto Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color:#727272;
+  color:white;
   font-weight:400;
 }
 
@@ -84,7 +84,7 @@ h2 {
 }
 
 h3, h4, h5, h6 {
-  color:#494949;
+  color:#08CDFF;
 }
 
 a {
@@ -124,12 +124,15 @@ code, pre {
   color:#333;
   font-size:12px;
 }
+code{
+  color: #B5B5B5;
+}
 
 pre {
   padding:8px 15px;
-  background: #f8f8f8;
+  background: white;
   border-radius:5px;
-  border:1px solid #e5e5e5;
+  border:1px solid #08CDFF;
   overflow-x: auto;
 }
 
@@ -321,4 +324,16 @@ footer {
     font-size:12pt;
     color:#444;
   }
+}
+.main_name {
+  color: #08CDFF;
+  margin-bottom: 0;
+}
+.main_subtitle {
+  color: #08CDFF;
+  margin-bottom: 0;
+}
+h2 {
+  color: #F808FF;
+  margin-top: 100px;
 }
