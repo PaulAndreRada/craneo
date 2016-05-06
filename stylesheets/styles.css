@@ -330,6 +330,6 @@ footer {
   margin-bottom:5px; 
 }
 h2 { 
-  margin-top: 100px;
-  margin-bottom: 5px;
+  margin-top: 100px !important;
+  margin-bottom: 5px !important;
 }
