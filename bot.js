@@ -18,7 +18,7 @@ module.exports = function(config){
     },
     setState:function(nextState){
       // if "endAbility" has been returned
-      // Top level merge
+      // Do a top level merge of both states
       bot.state = mergeObjects(bot.state, nextState);
       // Reset the responseList
       bot.state.responseList = !bot.state.responseList?
