@@ -81,6 +81,7 @@ h1 {
 
 h2 {
   color:#393939;
+  margin-top:30px;
 }
 
 h3, h4, h5, h6 {
@@ -321,4 +322,11 @@ footer {
     font-size:12pt;
     color:#444;
   }
+}
+
+.title { 
+  margin-bottom:5px;
+}
+.subtitle { 
+  margin-bottom:5px; 
 }
