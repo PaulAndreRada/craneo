@@ -15,9 +15,8 @@
   <body>
     <div class="wrapper">
       <header>
-        <img src="imgs/craneo_screen_logo.png"/>
-        <h1 class="main_name">Craneo</h1>
-        <p class="main_subtitle">A Bare Bones Bot Framework for node.js</p>
+        <h1>Craneo</h1>
+        <p>A Bare Bones Bot Framework for node.js</p>
 
         <p class="view"><a href="https://github.com/PaulAndreRada/craneo">View the Project on GitHub <small>PaulAndreRada/craneo</small></a></p>
 
@@ -60,7 +59,9 @@ This function will serve as the first response your bot will have.</p>
 <div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> <span class="pl-en">helloWorld</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">context</span>){
   <span class="pl-en">console</span>.<span class="pl-c1">log</span>( <span class="pl-s"><span class="pl-pds">'</span>Hello world<span class="pl-pds">'</span></span> );
   <span class="pl-k">return</span> <span class="pl-c1">false</span>
-}</pre></div>
+}
+
+<span class="pl-c1">module</span>.<span class="pl-smi">exports</span> <span class="pl-k">=</span> helloWorld;</pre></div>
 
 <p></p>
 
@@ -76,9 +77,9 @@ Inside <code>response-list.js</code> create the main <code>responseList</code> a
   {
     name<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>helloWorld<span class="pl-pds">'</span></span>,
     commands<span class="pl-k">:</span> [<span class="pl-sr"> <span class="pl-pds">/</span><span class="pl-k">^</span>(<span class="pl-c1">.</span><span class="pl-k">*?</span>(<span class="pl-cce">\h</span>ello<span class="pl-k">\b</span>)<span class="pl-c1">[<span class="pl-k">^</span>$]</span><span class="pl-k">*</span>)<span class="pl-k">$</span><span class="pl-pds">/</span>i</span> ],
-    response<span class="pl-k">:</span> hello
+    response<span class="pl-k">:</span> helloWorld
   }
-];
+]; 
 
 <span class="pl-c1">module</span>.<span class="pl-smi">exports</span> <span class="pl-k">=</span> responseList;</pre></div>
 
@@ -87,7 +88,7 @@ Inside <code>response-list.js</code> create the main <code>responseList</code> a
 <h3>
 <a id="create-a-commands-list-for-your-response" class="anchor" href="#create-a-commands-list-for-your-response" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Create a commands list for your response</h3>
 
-<p>The <code>commands</code> property inside a response object is an array that can be supplied any regular expressions. Craneo uses these expressions to match any command supplied by the user with a response function of your choosing.
+<p>The <code>commands</code> property inside a response object is an array that can be supplied any regular expressions. Craneo uses these expressions to match any command supplied by the user with a response function of your choosing. 
  By adding the regular expression <code>/^(.*?(\hello\b)[^$]*)$/i</code> inside the command array, we are connecting any messages with the word "hello" to the <code>helloWorld</code> function.</p>
 
 <h3>
@@ -124,46 +125,76 @@ Inside <code>response-list.js</code> create the main <code>responseList</code> a
 <div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> <span class="pl-en">responseChain</span> <span class="pl-k">=</span> <span class="pl-k">function</span>( <span class="pl-smi">context</span> ){
 
   <span class="pl-c">// do your response’s action</span>
-  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(‘response chain started’ );
+  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>A Response chain has started<span class="pl-pds">'</span></span> );
 
-  <span class="pl-c">// Return the following response objects to the bot in the same array format as the response list</span>
-  <span class="pl-k">return</span> [
+  <span class="pl-c">// Return the following response objects to the bot in the same array format as the default response list</span>
+  <span class="pl-k">var</span> responseList <span class="pl-k">=</span> [
     {
-      name<span class="pl-k">:</span> ‘foo’,
-      <span class="pl-en">response</span><span class="pl-k">:</span> <span class="pl-k">function</span>(){ <span class="pl-en">console</span>.<span class="pl-c1">log</span>(‘foo’); },
-      commands<span class="pl-k">:</span> […]
+      name<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>foo<span class="pl-pds">'</span></span>,
+      <span class="pl-en">response</span><span class="pl-k">:</span> <span class="pl-k">function</span>( <span class="pl-smi">context</span> ){
+          <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>foo, ending chain<span class="pl-pds">'</span></span>);
+          <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+      },
+      commands<span class="pl-k">:</span> [<span class="pl-sr"> <span class="pl-pds">/</span><span class="pl-k">^</span>(<span class="pl-c1">.</span><span class="pl-k">*?</span>(<span class="pl-k">\b</span>foo<span class="pl-k">\b</span>)<span class="pl-c1">[<span class="pl-k">^</span>$]</span><span class="pl-k">*</span>)<span class="pl-k">$</span><span class="pl-pds">/</span>i</span> ]
     },
     {
-      name<span class="pl-k">:</span> ‘bar’,
-      <span class="pl-en">response</span><span class="pl-k">:</span> <span class="pl-k">function</span>(){ <span class="pl-en">console</span>.<span class="pl-c1">log</span>(‘bar’); },
-      commands<span class="pl-k">:</span> […]
+      name<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>bar<span class="pl-pds">'</span></span>,
+      <span class="pl-en">response</span><span class="pl-k">:</span> <span class="pl-k">function</span>( <span class="pl-smi">context</span> ){
+        <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>bar, ending chain<span class="pl-pds">'</span></span>);
+        <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+      },
+      commands<span class="pl-k">:</span> [<span class="pl-sr"><span class="pl-pds">/</span><span class="pl-k">^</span>(<span class="pl-c1">.</span><span class="pl-k">*?</span>(<span class="pl-k">\b</span>bar<span class="pl-k">\b</span>)<span class="pl-c1">[<span class="pl-k">^</span>$]</span><span class="pl-k">*</span>)<span class="pl-k">$</span><span class="pl-pds">/</span>i</span>]
+    },
+    {
+      name<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>commandNotFound<span class="pl-pds">'</span></span>,
+      <span class="pl-en">response</span><span class="pl-k">:</span> <span class="pl-k">function</span>(){
+        <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>command not found in chain<span class="pl-pds">'</span></span>);
+        <span class="pl-k">return</span> responseList;
+      },
+      commands<span class="pl-k">:</span> [],
     }
-  ]
-} </pre></div>
+  ];
+
+  <span class="pl-k">return</span> responseList;
+}
+
+<span class="pl-c1">module</span>.<span class="pl-smi">exports</span> <span class="pl-k">=</span> responseChain;</pre></div>
 
 <h3>
 <a id="read-chain" class="anchor" href="#read-chain" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Read Chain</h3>
 
 <p>A Read Chain is used when you want to parse a message in detail. By returning the string <code>’read’</code> inside of a response along with a <code>responseList</code> property inside that same object the bot will read the message supplied a second time. This time using the responseList supplied inside of the matching object. This can be done in multiple sequences in order to get the most accurate reading of a message. </p>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> responseList <span class="pl-k">=</span> [
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> responseList <span class="pl-k">=</span> 
+[
   {
-    name<span class="pl-k">:</span> “show”,
-    response<span class="pl-k">:</span> ‘read’,
-    command<span class="pl-k">:</span> [ … ],
+    name<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>readChainExample<span class="pl-pds">'</span></span>,
+    response<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>read<span class="pl-pds">'</span></span>,
+    commands<span class="pl-k">:</span> [<span class="pl-sr"><span class="pl-pds">/</span><span class="pl-k">^</span>(<span class="pl-c1">.</span><span class="pl-k">*?</span>(<span class="pl-k">\b</span>show<span class="pl-k">\b</span>)<span class="pl-c1">[<span class="pl-k">^</span>$]</span><span class="pl-k">*</span>)<span class="pl-k">$</span><span class="pl-pds">/</span>i</span>],
     responseList<span class="pl-k">:</span>
     [
       {
-    name<span class="pl-k">:</span> ‘Gundam Wing’
-    <span class="pl-en">response</span><span class="pl-k">:</span> <span class="pl-k">function</span>(){ <span class="pl-en">console</span>.<span class="pl-c1">log</span>(‘<span class="pl-k">if</span> we weren’t idiots, we wouldn’t be soldiers.’); },
-    command<span class="pl-k">:</span> […]
+        name<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>showSpaceInvaders<span class="pl-pds">'</span></span>,
+        <span class="pl-en">response</span><span class="pl-k">:</span> <span class="pl-k">function</span>(<span class="pl-smi">context</span>){
+          <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>Space Invaders!<span class="pl-pds">'</span></span>);
+        },
+        commands<span class="pl-k">:</span> [<span class="pl-sr"><span class="pl-pds">/</span><span class="pl-k">^</span>(<span class="pl-c1">.</span><span class="pl-k">*?</span>(<span class="pl-k">\b</span>invaders<span class="pl-k">\b</span>)<span class="pl-c1">[<span class="pl-k">^</span>$]</span><span class="pl-k">*</span>)<span class="pl-k">$</span><span class="pl-pds">/</span>i</span>],
       },
       {
-    name<span class="pl-k">:</span> ‘<span class="pl-c1">MSG</span>’
-    <span class="pl-en">response</span><span class="pl-k">:</span> <span class="pl-k">function</span>(){ <span class="pl-en">console</span>.<span class="pl-c1">log</span>(’The <span class="pl-c1">OG</span> Gundam’);
-    command<span class="pl-k">:</span> […]
+        name<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>showBreakout<span class="pl-pds">'</span></span>,
+        <span class="pl-en">response</span><span class="pl-k">:</span> <span class="pl-k">function</span>(<span class="pl-smi">context</span>){
+          <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>Breakout!<span class="pl-pds">'</span></span>);
+          <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        },
+        commands<span class="pl-k">:</span> [<span class="pl-sr"><span class="pl-pds">/</span><span class="pl-k">^</span>(<span class="pl-c1">.</span><span class="pl-k">*?</span>(<span class="pl-k">\b</span>breakout<span class="pl-k">\b</span>)<span class="pl-c1">[<span class="pl-k">^</span>$]</span><span class="pl-k">*</span>)<span class="pl-k">$</span><span class="pl-pds">/</span>i</span>],
+      },
+      {
+        name<span class="pl-k">:</span><span class="pl-s"><span class="pl-pds">'</span>commandNotFound<span class="pl-pds">'</span></span>,
+        response<span class="pl-k">:</span> commandNotFound,
+        commands<span class="pl-k">:</span> []
       }
     ]
+  }
 ]</pre></div>
 
 <h3>
@@ -183,7 +214,7 @@ Inside <code>response-list.js</code> create the main <code>responseList</code> a
 
 <div class="highlight highlight-source-js"><pre><span class="pl-c">// Make your own context variables</span>
 <span class="pl-k">var</span> responseArgs  <span class="pl-k">=</span> {
-  userId <span class="pl-k">:</span> ‘<span class="pl-c1">RX78G</span>’,
+  userId <span class="pl-k">:</span> ‘<span class="pl-c1">RX78G</span>’, 
   name<span class="pl-k">:</span>  ‘Amuro Ray’
   type<span class="pl-k">:</span> ‘Gundam’
 }
@@ -195,22 +226,22 @@ Inside <code>response-list.js</code> create the main <code>responseList</code> a
 
 <p>Craneo’s parser expects a response named <code>’commandNotFound’</code> inside any response list provided. This allows you to supply a custom function that will be triggered whenever the user adds a command that does not match with your response list’s options. This response should use the same formating as any other response object, but does not need any commands inside the commands array. </p>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> responseList <span class="pl-k">=</span> [
-  {
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> responseList <span class="pl-k">=</span> [ 
+  { 
    name<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>commandNotFound<span class="pl-pds">'</span></span>,
    <span class="pl-en">response</span><span class="pl-k">:</span> <span class="pl-k">function</span>(<span class="pl-smi">context</span>){<span class="pl-k">...</span>},
    commands<span class="pl-k">:</span> []
-  }
+  } 
 ]</pre></div>
 
 <p>Created by Paul Rada &amp; Licensed under MIT</p>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/PaulAndreRada">PaulAndreRada</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
       </footer>
     </div>
     <script src="javascripts/scale.fix.js"></script>
-
+    
   </body>
 </html>
-<!--change-->
