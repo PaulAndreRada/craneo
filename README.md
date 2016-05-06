@@ -1,4 +1,4 @@
-#Craneo
+# <a href="http://paulandrerada.github.io/craneo/">Craneo</a>
 ### A Minimalist Bot Framework for node.js
 
 ### What it is
