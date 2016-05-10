@@ -62,7 +62,7 @@ By adding the regular expression `/^(.*?(\hello\b)[^$]*)$/i` inside the command 
 
 
 ### Listen to messages
-In your main app folder require Craneo along with your `response-list.js` file.
+In your app's main file require Craneo along with your `response-list.js` file.
 ```js
 var Craneo = require('craneo');
 var defaultList = require('./response-list');
