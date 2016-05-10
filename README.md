@@ -18,8 +18,8 @@ npm install craneo
 ##Quick Start
 </a>
 ###Create a response
-Create a `hello-world.js` file inside the main directory.</br>
-This function will serve as the first response your bot will have.
+Create a `hello-world.js` file inside your app's main directory.</br>
+This function will serve as a response to a message saying 'hello'.
 ```js
 var helloWorld = function(context){
   console.log( 'Hello world' );
@@ -39,7 +39,7 @@ var helloWorld = require('./hello-world.js');
 var responseList = [
   {
     name: 'helloWorld',
-    commands: [ /^(.*?(\hello\b)[^$]*)$/i ],
+    commands: [],
     response: helloWorld
   }
 ]; 
@@ -50,15 +50,12 @@ The `responseList` array will serve as the default list for all of your bot’s 
 </br>
 
 ### Add a command to your response
-The `commands` property inside a response object is an array that can be supplied any form of regular expression. </br>Craneo uses these expressions to match a message with a response of your choosing. 
-</br> By adding the regular expression `/^(.*?(\hello\b)[^$]*)$/i` inside the command array, we are connecting any messages with the word "hello" to the `helloWorld` response function.
+The `commands` property inside a response object is an array that can be supplied any form of regular expression. </br>
+Craneo uses these expressions to match a message with a response of your choosing. </br>
+By adding the regular expression `/^(.*?(\hello\b)[^$]*)$/i` inside the command array, we are connecting any messages with the word "hello" to the `helloWorld` response function.
 
 ```js
-  {
-    name: 'helloWorld',
     commands: [ /^(.*?(\hello\b)[^$]*)$/i ],
-    response: helloWorld
-  }
 ```
 </br>
 
@@ -70,7 +67,7 @@ In your main app folder require Craneo along with your `response-list.js` file.
 var Craneo = require('craneo');
 var defaultList = require('./response-list');
 ```
-Initiate your own instance of a Craneo by passing it `defaultList` inside a property named responseList. 
+Initiate your own instance of a Craneo by passing it `defaultList` to a property named responseList. 
 ```js
 var bot = Craneo({ responseList: defaultList }); 
 ```
