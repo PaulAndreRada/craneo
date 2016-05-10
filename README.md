@@ -1,4 +1,4 @@
-#Craneo
+# <a href="http://paulandrerada.github.io/craneo/">Craneo</a>
 ### A Minimalist Bot Framework for node.js
 
 ### What it is
@@ -16,15 +16,19 @@ npm install craneo
 
 </br></br>
 ##Quick Start
-
+For an even quicker start <a href="https://github.com/PaulAndreRada/craneo-quickstart">
+Download the Starter Template.
+</a>
 ###Create a response
 Create a `hello-world.js` file inside the main directory.</br>
 This function will serve as the first response your bot will have.
 ```js
-var helloWorld = function(context){ 
+var helloWorld = function(context){
   console.log( 'Hello world' );
   return false
 }
+
+module.exports = helloWorld;
 ```
 </br>
 
@@ -38,7 +42,7 @@ var responseList = [
   {
     name: 'helloWorld',
     commands: [ /^(.*?(\hello\b)[^$]*)$/i ],
-    response: hello
+    response: helloWorld
   }
 ]; 
 
@@ -74,25 +78,43 @@ As shown in our `hello-world.js` function, a basic response has a series of comm
 ### Response Chain
 Think of a response chain as a conversation, once a response matches it returns a list or possible responses that are used instead of the default response.  This narrows the bot's available responses to a specific set of actions.  In order to end the response chain, provide a function with `return false`, this will tell Craneo to go back to using the default responseList.
 ```js
-var responseChain = function( context ){ 
+var responseChain = function( context ){
 
   // do your response’s action
-  console.log(‘response chain started’ ); 
-  
-  // Return the following response objects to the bot in the same array format as the response list
-  return [
-    { 
-      name: ‘foo’,
-      response: function(){ console.log(‘foo’); }, 
-      commands: […]
+  console.log('A Response chain has started' );
+
+  // Return the following response objects to the bot in the same array format as the default response list
+  var responseList = [
+    {
+      name: 'foo',
+      response: function( context ){
+          console.log('foo, ending chain');
+          return false;
+      },
+      commands: [ /^(.*?(\bfoo\b)[^$]*)$/i ]
     },
-    { 
-      name: ‘bar’,
-      response: function(){ console.log(‘bar’); }, 
-      commands: […]
+    {
+      name: 'bar',
+      response: function( context ){
+        console.log('bar, ending chain');
+        return false;
+      },
+      commands: [/^(.*?(\bbar\b)[^$]*)$/i]
+    },
+    {
+      name: 'commandNotFound',
+      response: function(){
+        console.log('command not found in chain');
+        return responseList;
+      },
+      commands: [],
     }
-  ]
-} 
+  ];
+
+  return responseList;
+}
+
+module.exports = responseChain;
 ```
 
 ### Read Chain
@@ -100,24 +122,36 @@ A Read Chain is used when you want to parse a message in detail. By returning th
 
 
 ```js 
-var responseList = [
+var responseList = 
+[
   {
-    name: “show”,
-    response: ‘read’, 
-    command: [ … ],
-    responseList: 
-    [ 
-      { 
-	name: ‘Gundam Wing’
-	response: function(){ console.log(‘if we weren’t idiots, we wouldn’t be soldiers.’); },
-	command: […]
+    name: 'readChainExample',
+    response: 'read',
+    commands: [/^(.*?(\bshow\b)[^$]*)$/i],
+    responseList:
+    [
+      {
+        name: 'showSpaceInvaders',
+        response: function(context){
+          console.log('Space Invaders!');
+        },
+        commands: [/^(.*?(\binvaders\b)[^$]*)$/i],
       },
-      { 
-	name: ‘MSG’
-	response: function(){ console.log(’The OG Gundam’); 
-	command: […]
+      {
+        name: 'showBreakout',
+        response: function(context){
+          console.log('Breakout!');
+          return false;
+        },
+        commands: [/^(.*?(\bbreakout\b)[^$]*)$/i],
+      },
+      {
+        name:'commandNotFound',
+        response: commandNotFound,
+        commands: []
       }
     ]
+  }
 ]
 ```
 ### Important Note
