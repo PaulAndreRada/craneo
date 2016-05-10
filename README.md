@@ -16,8 +16,6 @@ npm install craneo
 
 </br></br>
 ##Quick Start
-For an even quicker start <a href="https://github.com/PaulAndreRada/craneo-quickstart">
-Download the Starter Template.
 </a>
 ###Create a response
 Create a `hello-world.js` file inside the main directory.</br>
