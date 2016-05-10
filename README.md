@@ -32,7 +32,7 @@ module.exports = helloWorld;
 
 ###Create a list for your responses
 In order for the bot to read your response you'll need to create a `response-list.js` file.
-Inside `response-list.js` create the main `responseList` array and import the `hello-world.js` response function into this file. It will serve as the root response list for all of your bot’s commands and responses.  
+Inside it create the main `responseList` array and import the `hello-world.js` response function into this file.
 ```js
 var helloWorld = require('./hello-world.js');
 
@@ -46,23 +46,35 @@ var responseList = [
 
 module.exports = responseList;
 ```
+The `responseList` array will serve as the default list for all of your bot’s commands and responses.
 </br>
 
-### Create a commands list for your response
-The `commands` property inside a response object is an array that can be supplied any regular expressions. </br>Craneo uses these expressions to match any command supplied by the user with a response function of your choosing. 
-</br> By adding the regular expression `/^(.*?(\hello\b)[^$]*)$/i` inside the command array, we are connecting any messages with the word "hello" to the `helloWorld` function.
+### Add a command to your response
+The `commands` property inside a response object is an array that can be supplied any form of regular expression. </br>Craneo uses these expressions to match a message with a response of your choosing. 
+</br> By adding the regular expression `/^(.*?(\hello\b)[^$]*)$/i` inside the command array, we are connecting any messages with the word "hello" to the `helloWorld` response function.
+
+```js
+  {
+    name: 'helloWorld',
+    commands: [ /^(.*?(\hello\b)[^$]*)$/i ],
+    response: helloWorld
+  }
+```
+</br>
+
+
 
 ### Listen to messages
 In your main app folder require Craneo along with your `response-list.js` file.
 ```js
 var Craneo = require('craneo');
-var responseList = require('./response-list');
+var defaultList = require('./response-list');
 ```
-Initiate your own instance of a Craneo by passing it your `responseList` array inside of an object with a property named responseList. 
+Initiate your own instance of a Craneo by passing it `defaultList` inside a property named responseList. 
 ```js
-var bot = Craneo({ responseList: responseList }); 
+var bot = Craneo({ responseList: defaultList }); 
 ```
-Now you're ready to listen to any message by calling the listen method inside your bot and passing it a message and any arguments that you would like to be passed down to your response.
+Now you're ready to listen to any message by calling the listen method inside your bot and passing it a message along with any arguments that you would like to be passed down to your response.
 ```js
 bot.listen('hello');
 ```
