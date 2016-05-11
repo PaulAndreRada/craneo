@@ -15,9 +15,8 @@
   <body>
     <div class="wrapper">
       <header>
-        <img src="imgs/craneo_screen_logo.png" /> 
-        <h1 class="title">Craneo</h1>
-        <p class="subtitle">A Bare Bones Bot Framework for node.js</p>
+        <h1>Craneo</h1>
+        <p>A Bare Bones Bot Framework for node.js</p>
 
         <p class="view"><a href="https://github.com/PaulAndreRada/craneo">View the Project on GitHub <small>PaulAndreRada/craneo</small></a></p>
 
@@ -29,15 +28,12 @@
         </ul>
       </header>
       <section>
-        <h3>
-<a id="what-it-is" class="anchor" href="#what-it-is" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>What it is</h3>
+        <p><b>What it is:</b>
+Craneo is a node framework for building a simple chat bot.</p>
 
-<p>The basic command and response structure for any small to medium sized bot you intend to make.</p>
-
-<h3>
-<a id="what-its-not" class="anchor" href="#what-its-not" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>What it’s not</h3>
-
-<p>Craneo is not an out of the box natural language intelligence for your commands, it’s simply a structure for responding to different types of commands. In other words - Here’s the skull, you supply the brain.</p>
+<p><b>What it’s not:</b>
+Craneo is not an out-of-the-box, artificially intelligent bot; it is simply a framework for building a bot that responds to text-based commands with actions, prompts, or chat responses. In other words, here’s the skull, you supply the brain.
+</p>
 
 <h3>
 <a id="install" class="anchor" href="#install" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Install</h3>
@@ -48,75 +44,84 @@
 
 <p></p>
 
-<h2><a id="quick-start" class="anchor" href="#quick-start" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Quick Start</h2>
-<h3><a href="https://github.com/PaulAndreRada/craneo-quickstart.git">Download the quickstart template here.</a></h3>
+<h2>
+<a id="quick-start" class="anchor" href="#quick-start" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Quick Start</h2>
+
+<p>Let’s build a hello world bot program in 3 simple steps then pass it to a Craneo instance.
+First install Craneo then create an <code>bot.js</code> file in an empty directory. </p>
 
 <h3>
 <a id="create-a-response" class="anchor" href="#create-a-response" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Create a response</h3>
 
-<p>Create a <code>hello-world.js</code> file inside the main directory.
-This function will serve as the first response your bot will have.</p>
+<p>This function will be our bot’s response to the words ‘hello’ and ‘arise’. </p>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> <span class="pl-en">helloWorld</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">context</span>){
-  <span class="pl-en">console</span>.<span class="pl-c1">log</span>( <span class="pl-s"><span class="pl-pds">'</span>Hello world<span class="pl-pds">'</span></span> );
-  <span class="pl-k">return</span> <span class="pl-c1">false</span>
-}
-
-<span class="pl-c1">module</span>.<span class="pl-smi">exports</span> <span class="pl-k">=</span> helloWorld;</pre></div>
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> <span class="pl-en">helloWorld</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(){ 
+  <span class="pl-en">console</span>.<span class="pl-c1">log</span>( ‘Hello world<span class="pl-k">!</span>’ ); 
+  <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+}</pre></div>
 
 <p></p>
 
 <h3>
-<a id="create-a-list-for-your-responses" class="anchor" href="#create-a-list-for-your-responses" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Create a list for your responses</h3>
+<a id="create-a-response-list" class="anchor" href="#create-a-response-list" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Create a response list</h3>
 
-<p>In order for the bot to read your response you'll need to create a <code>response-list.js</code> file.
-Inside <code>response-list.js</code> create the main <code>responseList</code> array and import the <code>hello-world.js</code> response function into this file. It will serve as the root response list for all of your bot’s commands and responses.  </p>
+<p>In order to have the bot respond to multiple commands we will create a <code>responseList</code> array under our <code>helloWorld</code> function. This array will have a response object for our previously created <code>helloWorld</code> function and another function named <code>commandNotFound</code>. This will serve as our default response when no other response matches.</p>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> helloWorld <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>./hello-world.js<span class="pl-pds">'</span></span>);
-
-<span class="pl-k">var</span> responseList <span class="pl-k">=</span> [
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> responseList <span class="pl-k">=</span> [
   {
-    name<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>helloWorld<span class="pl-pds">'</span></span>,
-    commands<span class="pl-k">:</span> [<span class="pl-sr"> <span class="pl-pds">/</span><span class="pl-k">^</span>(<span class="pl-c1">.</span><span class="pl-k">*?</span>(<span class="pl-cce">\h</span>ello<span class="pl-k">\b</span>)<span class="pl-c1">[<span class="pl-k">^</span>$]</span><span class="pl-k">*</span>)<span class="pl-k">$</span><span class="pl-pds">/</span>i</span> ],
-    response<span class="pl-k">:</span> helloWorld
+    name<span class="pl-k">:</span> ‘hello’,
+    response<span class="pl-k">:</span> helloWorld, 
+    commands<span class="pl-k">:</span> []
+  },
+    name<span class="pl-k">:</span> ‘commandNotFound’
+    <span class="pl-en">response</span><span class="pl-k">:</span> <span class="pl-k">function</span>(){ <span class="pl-en">console</span>.<span class="pl-c1">log</span>( ‘I didn’t get that.’);  },
+    commands<span class="pl-k">:</span> []
   }
-]; 
-
-<span class="pl-c1">module</span>.<span class="pl-smi">exports</span> <span class="pl-k">=</span> responseList;</pre></div>
+];</pre></div>
 
 <p></p>
 
 <h3>
-<a id="create-a-commands-list-for-your-response" class="anchor" href="#create-a-commands-list-for-your-response" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Create a commands list for your response</h3>
+<a id="add-a-command" class="anchor" href="#add-a-command" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Add a command</h3>
 
-<p>The <code>commands</code> property inside a response object is an array that can be supplied any regular expressions. Craneo uses these expressions to match any command supplied by the user with a response function of your choosing. 
- By adding the regular expression <code>/^(.*?(\hello\b)[^$]*)$/i</code> inside the command array, we are connecting any messages with the word "hello" to the <code>helloWorld</code> function.</p>
+<p>The <code>commands</code> property inside a response object expects an array of regular expressions that will match a response to the incoming message.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-c">// add your commands inside of the response named hello</span>
+    commands<span class="pl-k">:</span> [ 
+<span class="pl-sr">      <span class="pl-pds">/</span><span class="pl-k">^</span>(<span class="pl-c1">.</span><span class="pl-k">*?</span>(<span class="pl-cce">\h</span>ello<span class="pl-k">\b</span>)<span class="pl-c1">[<span class="pl-k">^</span>$]</span><span class="pl-k">*</span>)<span class="pl-k">$</span><span class="pl-pds">/</span>i</span>
+<span class="pl-sr">      <span class="pl-pds">/</span><span class="pl-k">^</span>(<span class="pl-c1">.</span><span class="pl-k">*?</span>(<span class="pl-cce">\a</span>rise<span class="pl-k">\b</span>)<span class="pl-c1">[<span class="pl-k">^</span>$]</span><span class="pl-k">*</span>)<span class="pl-k">$</span><span class="pl-pds">/</span>i</span>
+    ]</pre></div>
+
+<p></p>
 
 <h3>
-<a id="listen-to-messages" class="anchor" href="#listen-to-messages" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Listen to messages</h3>
+<a id="create-a-craneo-instance" class="anchor" href="#create-a-craneo-instance" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Create a Craneo Instance</h3>
 
-<p>In your main app folder require Craneo along with your <code>response-list.js</code> file.</p>
+<p>Now that we built the bot’s commands and responses. 
+The only thing left to do is add them to an instance of Craneo and listen to any incoming messages.</p>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> Craneo <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>craneo<span class="pl-pds">'</span></span>);
-<span class="pl-k">var</span> responseList <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>./response-list<span class="pl-pds">'</span></span>);</pre></div>
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> Craneo <span class="pl-k">=</span> <span class="pl-c1">require</span>(‘craneo’);
+<span class="pl-k">var</span> myBot <span class="pl-k">=</span> <span class="pl-en">Craneo</span>({ responseList<span class="pl-k">:</span> responseList }); 
 
-<p>Initiate your own instance of a Craneo by passing it your <code>responseList</code> array inside of an object with a property named responseList. </p>
+<span class="pl-smi">myBot</span>.<span class="pl-en">listen</span>( ‘arise’ );</pre></div>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> bot <span class="pl-k">=</span> <span class="pl-en">Craneo</span>({ responseList<span class="pl-k">:</span> responseList }); </pre></div>
+<p></p>
 
-<p>Now you're ready to listen to any message by calling the listen method inside your bot and passing it a message and any arguments that you would like to be passed down to your response.</p>
+<h3>
+<a id="its-alive-test-it" class="anchor" href="#its-alive-test-it" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>It’s alive, test it!</h3>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-smi">bot</span>.<span class="pl-en">listen</span>(<span class="pl-s"><span class="pl-pds">'</span>hello<span class="pl-pds">'</span></span>);</pre></div>
+<p>Test out your hello world program by running <code>node app.js</code> on your terminal. The bot should respond with ‘Hello world!’ in your console. Thats it, you have created your first bot!</p>
 
 <p></p>
 
 <h2>
-<a id="response-types" class="anchor" href="#response-types" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Response Types</h2>
+<a id="docs" class="anchor" href="#docs" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Docs</h2>
 
 <h3>
 <a id="basic-response" class="anchor" href="#basic-response" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Basic Response</h3>
 
-<p>As shown in our <code>hello-world.js</code> function, a basic response has a series of commands that can match with a users message to trigger a basic response function. These function types should return false. Returning false tells the bot to use the default <code>responseList</code> array for the following responses. As with all other response types a basic response will be passed a context argument with the objects bot and client.</p>
+<p>As shown in our <code>hello-world.js</code> function, a basic response has a series of commands that can match with a users message to trigger a basic response function. These function types should return false. Returning false tells the bot to use the default <code>responseList</code> array for the following responses. As with all other response types a basic response will be passed a context argument with the objects bot and client.
+<br></p>
 
 <h3>
 <a id="response-chain" class="anchor" href="#response-chain" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Response Chain</h3>
@@ -161,6 +166,8 @@ Inside <code>response-list.js</code> create the main <code>responseList</code> a
 
 <span class="pl-c1">module</span>.<span class="pl-smi">exports</span> <span class="pl-k">=</span> responseChain;</pre></div>
 
+<p><br></p>
+
 <h3>
 <a id="read-chain" class="anchor" href="#read-chain" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Read Chain</h3>
 
@@ -175,14 +182,14 @@ Inside <code>response-list.js</code> create the main <code>responseList</code> a
     responseList<span class="pl-k">:</span>
     [
       {
-        name<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>showSpaceInvaders<span class="pl-pds">'</span></span>,
+        name<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>spaceInvaders<span class="pl-pds">'</span></span>,
         <span class="pl-en">response</span><span class="pl-k">:</span> <span class="pl-k">function</span>(<span class="pl-smi">context</span>){
           <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>Space Invaders!<span class="pl-pds">'</span></span>);
         },
         commands<span class="pl-k">:</span> [<span class="pl-sr"><span class="pl-pds">/</span><span class="pl-k">^</span>(<span class="pl-c1">.</span><span class="pl-k">*?</span>(<span class="pl-k">\b</span>invaders<span class="pl-k">\b</span>)<span class="pl-c1">[<span class="pl-k">^</span>$]</span><span class="pl-k">*</span>)<span class="pl-k">$</span><span class="pl-pds">/</span>i</span>],
       },
       {
-        name<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>showBreakout<span class="pl-pds">'</span></span>,
+        name<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>breakout<span class="pl-pds">'</span></span>,
         <span class="pl-en">response</span><span class="pl-k">:</span> <span class="pl-k">function</span>(<span class="pl-smi">context</span>){
           <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>Breakout!<span class="pl-pds">'</span></span>);
           <span class="pl-k">return</span> <span class="pl-c1">false</span>;
@@ -199,19 +206,15 @@ Inside <code>response-list.js</code> create the main <code>responseList</code> a
 ]</pre></div>
 
 <h3>
-<a id="important-note" class="anchor" href="#important-note" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Important Note</h3>
+<a id="repeating-commands" class="anchor" href="#repeating-commands" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Repeating commands</h3>
 
-<p>The response list is read in order, repeating a command [regex formatting and context] will result in a matching of the first command of that type only. If there is a need for a command that reads <code>’Show Gundam Wing’</code> and a command in a different object that reads <code>’Show MSG’</code> then use a read chain with a command of <code>’show’</code> then pass it a response list that holds the <code>Gundam Wing</code> response object and the <code>MSG</code> response object; As shown in the example above. This will match the 'show' command first then re-read the same message in order to match the following command.</p>
-
-<p></p>
-
-<h2>
-<a id="general-docs" class="anchor" href="#general-docs" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>General Docs</h2>
+<p>The response list is read in order, repeating a command [regex formatting and context] will result in a matching of the first command of that type only. If there is a need for a command that reads <code>’Show Sapce Invaders’</code> and a command in a different object that reads <code>’Show Breakout’</code> then use a read chain with a command of <code>’show’</code> then pass it a response list that holds the <code>spaceInvaders</code> response and the <code>breakout</code> response; As shown in the example above. This will match the 'show' command first then re-read the same message in order to match the following command.
+</p>
 
 <h3>
 <a id="passing-down-a-context" class="anchor" href="#passing-down-a-context" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Passing down a context</h3>
 
-<p>All responses will get passed a context argument containing the bot's variables and the [your]client's arguments. The <code>context.bot</code> object will pass down the contents necessary for the bot to function; Mainly the message content <code>context.bot.message</code> and the current response list <code>context.bot.responseList</code>.  The <code>context.client</code> object will pass down whatever contents you pass to the bot’s <code>listen</code> method.</p>
+<p>All responses will get passed a context argument containing the bot's variables and [your] client's arguments. The <code>context.bot</code> object will pass down the contents necessary for the bot to function; Mainly the message content <code>context.bot.message</code> and the current response list <code>context.bot.responseList</code>.  The <code>context.client</code> object will pass down whatever contents you pass to the bot’s <code>listen</code> method.</p>
 
 <div class="highlight highlight-source-js"><pre><span class="pl-c">// Make your own context variables</span>
 <span class="pl-k">var</span> responseArgs  <span class="pl-k">=</span> {
@@ -220,7 +223,9 @@ Inside <code>response-list.js</code> create the main <code>responseList</code> a
   type<span class="pl-k">:</span> ‘Gundam’
 }
 <span class="pl-c">// Pass them to the response</span>
-<span class="pl-smi">bot</span>.<span class="pl-en">listen</span>( ‘hello’, responseArgs );</pre></div>
+<span class="pl-smi">bot</span>.<span class="pl-en">listen</span>( ‘Gundams fight<span class="pl-k">!</span>’, responseArgs );</pre></div>
+
+<p><br></p>
 
 <h3>
 <a id="command-not-found" class="anchor" href="#command-not-found" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Command Not Found</h3>
@@ -235,10 +240,16 @@ Inside <code>response-list.js</code> create the main <code>responseList</code> a
   } 
 ]</pre></div>
 
-<p>Created by Paul Rada &amp; Licensed under MIT</p>
+<p><br><br><br></p>
+
+<h2>
+<a id="more-coming-soon" class="anchor" href="#more-coming-soon" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>More coming soon</h2>
+
+<p>Created and maintained by Paul Rada &amp; Licensed under MIT</p>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/PaulAndreRada">PaulAndreRada</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
       </footer>
     </div>
     <script src="javascripts/scale.fix.js"></script>
