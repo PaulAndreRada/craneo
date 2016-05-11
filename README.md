@@ -27,6 +27,7 @@ var helloWorld = function(){
   return false;
 }
 ```
+</br>
 
 ### Create a response list
 In order to have the bot respond to multiple commands we will create a `responseList` array under our `helloWorld` function. This array will have a response object for our previously created `helloWorld` function and another function named `commandNotFound`. This will serve as our default response when no other response matches.
@@ -43,6 +44,7 @@ var responseList = [
   }
 ];
 ```
+</br>
 
 ### Add a command
 The `commands` property inside a response object expects an array of regular expressions that will match a response to the incoming message.
@@ -53,6 +55,7 @@ The `commands` property inside a response object expects an array of regular exp
       /^(.*?(\arise\b)[^$]*)$/i
     ]
 ```
+</br>
 
 ### Create a Craneo Instance
 Now that we built the bot’s commands and responses. 
@@ -63,8 +66,9 @@ var myBot = Craneo({ responseList: responseList });
 
 myBot.listen( ‘arise’ );
 ```
+</br>
 
-### It’s Alive!
+### It’s alive, test it!
 Test out your hello world program by running `node app.js` on your terminal. The bot should respond with ‘Hello world!’ in your console. Thats it, you have created your first bot!
 
 
@@ -73,6 +77,7 @@ Test out your hello world program by running `node app.js` on your terminal. The
 
 ### Basic Response
 As shown in our `hello-world.js` function, a basic response has a series of commands that can match with a users message to trigger a basic response function. These function types should return false. Returning false tells the bot to use the default `responseList` array for the following responses. As with all other response types a basic response will be passed a context argument with the objects bot and client.
+<br>
 
 ### Response Chain
 Think of a response chain as a conversation, once a response matches it returns a list or possible responses that are used instead of the default response.  This narrows the bot's available responses to a specific set of actions.  In order to end the response chain, provide a function with `return false`, this will tell Craneo to go back to using the default responseList.
@@ -115,11 +120,10 @@ var responseChain = function( context ){
 
 module.exports = responseChain;
 ```
+<br>
 
 ### Read Chain
 A Read Chain is used when you want to parse a message in detail. By returning the string `’read’` inside of a response along with a `responseList` property inside that same object the bot will read the message supplied a second time. This time using the responseList supplied inside of the matching object. This can be done in multiple sequences in order to get the most accurate reading of a message. 
-
-
 ```js 
 var responseList = 
 [
@@ -155,7 +159,7 @@ var responseList =
 ```
 ### Repeating commands 
 The response list is read in order, repeating a command [regex formatting and context] will result in a matching of the first command of that type only. If there is a need for a command that reads `’Show Sapce Invaders’` and a command in a different object that reads `’Show Breakout’` then use a read chain with a command of `’show’` then pass it a response list that holds the `spaceInvaders` response and the `breakout` response; As shown in the example above. This will match the 'show' command first then re-read the same message in order to match the following command.
-</br></br>
+</br>
 
 ### Passing down a context
 All responses will get passed a context argument containing the bot's variables and [your] client's arguments. The `context.bot` object will pass down the contents necessary for the bot to function; Mainly the message content `context.bot.message` and the current response list `context.bot.responseList`.  The `context.client` object will pass down whatever contents you pass to the bot’s `listen` method.
@@ -169,6 +173,7 @@ var responseArgs  = {
 // Pass them to the response
 bot.listen( ‘Gundams fight!’, responseArgs );
 ```
+<br>
 
 ###Command Not Found
 Craneo’s parser expects a response named `’commandNotFound’` inside any response list provided. This allows you to supply a custom function that will be triggered whenever the user adds a command that does not match with your response list’s options. This response should use the same formating as any other response object, but does not need any commands inside the commands array. 
@@ -184,8 +189,6 @@ var responseList = [
 ```
 
 
-#More coming soon
+##More coming soon
 
-
-
-Created by Paul Rada & Licensed under MIT
+Created and maintained by Paul Rada & Licensed under MIT
