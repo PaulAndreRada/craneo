@@ -188,7 +188,6 @@ var responseList = [
 ]
 ```
 
-
+<br><br><br>
 ##More coming soon
-
 Created and maintained by Paul Rada & Licensed under MIT
