@@ -2,7 +2,7 @@
 ### A Minimalist Bot Framework for node.js
 </br></br>
 <b>What it is</b>
-Craneo is a node framework for building a simple chat bot.
+Craneo is a node framework for building a simple chat bot.</br>
 <b>What it’s not</b>
 Craneo is not an out-of-the-box, artificially intelligent bot; it is simply a framework for building a bot that responds to text-based commands with actions, prompts, or chat responses. In other words, here’s the skull, you supply the brain.
 </br></br>
