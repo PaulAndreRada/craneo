@@ -8,73 +8,69 @@ Craneo is a node framework for building a simple chat bot.
 Craneo is not an out-of-the-box, artificially intelligent bot; it is simply a framework for building a bot that responds to text-based commands with actions, prompts, or chat responses. In other words, here’s the skull, you supply the brain.
 
 
-###Install
+### Install
 If you have node.js installed you can simply use npm to download it.
 ```bash 
 npm install craneo
 ```
 
 </br></br>
-##Quick Start
-</a>
+
+## Quick Start
+Let’s build a hello world bot program in 3 simple steps then pass it to a Craneo instance.
+First install Craneo then create an `bot.js` file in an empty directory. 
+
 ###Create a response
-Create a `hello-world.js` file inside your app's main directory.</br>
-This function will serve as a response to a message saying 'hello'.
+This function will be our bot’s response to the words ‘hello’ and ‘arise’. 
 ```js
-var helloWorld = function(context){
-  console.log( 'Hello world' );
-  return false
+var helloWorld = function(){ 
+  console.log( ‘Hello world!’ ); 
+  return false;
 }
-
-module.exports = helloWorld;
 ```
-</br>
+</br> 
 
-###Create a list for your responses
-In order for the bot to read your response you'll need to create a `response-list.js` file.
-Inside it create the main `responseList` array and import the `hello-world.js` response function into this file.
+### Create a response list
+In order to have the bot respond to multiple commands we will create a `responseList` array under our `helloWorld` function. This array will have a response object for our previously created `helloWorld` function and another function named `commandNotFound`. This will serve as our default response when no other response matches.
 ```js
-var helloWorld = require('./hello-world.js');
-
 var responseList = [
   {
-    name: 'helloWorld',
-    commands: [],
-    response: helloWorld
+    name: ‘hello’,
+    response: helloWorld, 
+    commands: []
+  },
+    name: ‘commandNotFound’
+    response: function(){ console.log( ‘I didn’t get that.’);  },
+    commands: []
   }
-]; 
-
-module.exports = responseList;
-```
-The `responseList` array will serve as the default list for all of your bot’s commands and responses.
-</br>
-
-### Add a command to your response
-The `commands` property inside a response object is an array that can be supplied any form of regular expression. </br>
-Craneo uses these expressions to match a message with a response of your choosing. </br>
-By adding the regular expression `/^(.*?(\hello\b)[^$]*)$/i` inside the command array, we are connecting any messages with the word "hello" to the `helloWorld` response function.
-
-```js
-    commands: [ /^(.*?(\hello\b)[^$]*)$/i ],
+];
 ```
 </br>
 
+### Add a command
+The `commands` property inside a response object expects an array of regular expressions that will match a response to the incoming message.
+```js
+// add your commands inside of the response named hello
+    commands: [ 
+      /^(.*?(\hello\b)[^$]*)$/i
+      /^(.*?(\arise\b)[^$]*)$/i
+    ]
+```
+</br> 
 
+### Create a Craneo Instance
+Now that we built the bot’s commands and responses. 
+The only thing left to do is add them to an instance of Craneo and listen to any incoming messages.
+```js
+var Craneo = require(‘craneo’);
+var myBot = Craneo({ responseList: responseList }); 
 
-### Listen to messages
-In your app's main file require Craneo along with your `response-list.js` file.
-```js
-var Craneo = require('craneo');
-var defaultList = require('./response-list');
+myBot.listen( ‘arise’ );
 ```
-Initiate your own instance of a Craneo by passing it `defaultList` to a property named responseList. 
-```js
-var bot = Craneo({ responseList: defaultList }); 
-```
-Now you're ready to listen to any message by calling the listen method inside your bot and passing it a message along with any arguments that you would like to be passed down to your response.
-```js
-bot.listen('hello');
-```
+
+### It’s Alive!
+Test out your hello world program by running `node app.js` on your terminal. The bot should respond with ‘Hello world!’ in your console. Thats it, you have created your first bot!
+
 
 </br></br>
 ## Response Types
@@ -138,14 +134,14 @@ var responseList =
     responseList:
     [
       {
-        name: 'showSpaceInvaders',
+        name: 'spaceInvaders',
         response: function(context){
           console.log('Space Invaders!');
         },
         commands: [/^(.*?(\binvaders\b)[^$]*)$/i],
       },
       {
-        name: 'showBreakout',
+        name: 'breakout',
         response: function(context){
           console.log('Breakout!');
           return false;
@@ -161,14 +157,13 @@ var responseList =
   }
 ]
 ```
-### Important Note
-The response list is read in order, repeating a command [regex formatting and context] will result in a matching of the first command of that type only. If there is a need for a command that reads `’Show Gundam Wing’` and a command in a different object that reads `’Show MSG’` then use a read chain with a command of `’show’` then pass it a response list that holds the `Gundam Wing` response object and the `MSG` response object; As shown in the example above. This will match the 'show' command first then re-read the same message in order to match the following command.
-
-
+### Repeating commands 
+The response list is read in order, repeating a command [regex formatting and context] will result in a matching of the first command of that type only. If there is a need for a command that reads `’Show Sapce Invaders’` and a command in a different object that reads `’Show Breakout’` then use a read chain with a command of `’show’` then pass it a response list that holds the `spaceInvaders` response and the `breakout` response; As shown in the example above. This will match the 'show' command first then re-read the same message in order to match the following command.
 </br></br>
+
 ## General Docs
 ### Passing down a context
-All responses will get passed a context argument containing the bot's variables and the [your]client's arguments. The `context.bot` object will pass down the contents necessary for the bot to function; Mainly the message content `context.bot.message` and the current response list `context.bot.responseList`.  The `context.client` object will pass down whatever contents you pass to the bot’s `listen` method.
+All responses will get passed a context argument containing the bot's variables and [your] client's arguments. The `context.bot` object will pass down the contents necessary for the bot to function; Mainly the message content `context.bot.message` and the current response list `context.bot.responseList`.  The `context.client` object will pass down whatever contents you pass to the bot’s `listen` method.
 ```js
 // Make your own context variables
 var responseArgs  = {
@@ -177,7 +172,7 @@ var responseArgs  = {
   type: ‘Gundam’
 }
 // Pass them to the response
-bot.listen( ‘hello’, responseArgs );
+bot.listen( ‘Gundams fight!’, responseArgs );
 ```
 
 ###Command Not Found
@@ -192,6 +187,10 @@ var responseList = [
   } 
 ]
 ```
+
+
+#More coming soon
+
 
 
 Created by Paul Rada & Licensed under MIT
