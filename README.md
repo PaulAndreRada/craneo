@@ -27,7 +27,6 @@ var helloWorld = function(){
   return false;
 }
 ```
-</br> 
 
 ### Create a response list
 In order to have the bot respond to multiple commands we will create a `responseList` array under our `helloWorld` function. This array will have a response object for our previously created `helloWorld` function and another function named `commandNotFound`. This will serve as our default response when no other response matches.
@@ -44,7 +43,6 @@ var responseList = [
   }
 ];
 ```
-</br>
 
 ### Add a command
 The `commands` property inside a response object expects an array of regular expressions that will match a response to the incoming message.
@@ -55,7 +53,6 @@ The `commands` property inside a response object expects an array of regular exp
       /^(.*?(\arise\b)[^$]*)$/i
     ]
 ```
-</br> 
 
 ### Create a Craneo Instance
 Now that we built the bot’s commands and responses. 
@@ -72,7 +69,7 @@ Test out your hello world program by running `node app.js` on your terminal. The
 
 
 </br></br>
-## Response Types
+## Docs
 
 ### Basic Response
 As shown in our `hello-world.js` function, a basic response has a series of commands that can match with a users message to trigger a basic response function. These function types should return false. Returning false tells the bot to use the default `responseList` array for the following responses. As with all other response types a basic response will be passed a context argument with the objects bot and client.
@@ -160,7 +157,6 @@ var responseList =
 The response list is read in order, repeating a command [regex formatting and context] will result in a matching of the first command of that type only. If there is a need for a command that reads `’Show Sapce Invaders’` and a command in a different object that reads `’Show Breakout’` then use a read chain with a command of `’show’` then pass it a response list that holds the `spaceInvaders` response and the `breakout` response; As shown in the example above. This will match the 'show' command first then re-read the same message in order to match the following command.
 </br></br>
 
-## General Docs
 ### Passing down a context
 All responses will get passed a context argument containing the bot's variables and [your] client's arguments. The `context.bot` object will pass down the contents necessary for the bot to function; Mainly the message content `context.bot.message` and the current response list `context.bot.responseList`.  The `context.client` object will pass down whatever contents you pass to the bot’s `listen` method.
 ```js
