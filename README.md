@@ -23,23 +23,23 @@ First install Craneo then create an `bot.js` file in an empty directory.
 This function will be our bot’s response to the words ‘hello’ and ‘arise’. 
 ```js
 var helloWorld = function(){ 
-  console.log( ‘Hello world!’ ); 
+  console.log( "Hello world!" ); 
   return false;
 }
 ```
 </br>
 
 ### Create a response list
-In order to have the bot respond to multiple commands we will create a `responseList` array under our `helloWorld` function. This array will have a response object for our previously created `helloWorld` function and another function named `commandNotFound`. This will serve as our default response when no other response matches.
+In order to have the bot respond to multiple commands we will create a `responseList` array under our `helloWorld` function. This array will have a response object named `hello` and another function named `commandNotFound`. This will serve as our default response when no other response matches.
 ```js
 var responseList = [
   {
-    name: ‘hello’,
+    name: "hello",
     response: helloWorld, 
     commands: []
   },
-    name: ‘commandNotFound’
-    response: function(){ console.log( ‘I didn’t get that.’);  },
+    name: "commandNotFound"
+    response: function(){ console.log( "I didn’t get that.");  },
     commands: []
   }
 ];
@@ -51,8 +51,8 @@ The `commands` property inside a response object expects an array of regular exp
 ```js
 // add your commands inside of the response named hello
     commands: [ 
-      /^(.*?(\hello\b)[^$]*)$/i
-      /^(.*?(\arise\b)[^$]*)$/i
+      /^(.*?(\bhello\b)[^$]*)$/i,
+      /^(.*?(\barise\b)[^$]*)$/i
     ]
 ```
 </br>
@@ -61,10 +61,10 @@ The `commands` property inside a response object expects an array of regular exp
 Now that we built the bot’s commands and responses. 
 The only thing left to do is add them to an instance of Craneo and listen to any incoming messages.
 ```js
-var Craneo = require(‘craneo’);
+var Craneo = require("craneo");
 var myBot = Craneo({ responseList: responseList }); 
 
-myBot.listen( ‘arise’ );
+myBot.listen( "arise" );
 ```
 </br>
 
@@ -85,30 +85,30 @@ Think of a response chain as a conversation, once a response matches it returns 
 var responseChain = function( context ){
 
   // do your response’s action
-  console.log('A Response chain has started' );
+  console.log("A Response chain has started" );
 
   // Return the following response objects to the bot in the same array format as the default response list
   var responseList = [
     {
-      name: 'foo',
+      name: "foo",
       response: function( context ){
-          console.log('foo, ending chain');
+          console.log("foo, ending chain");
           return false;
       },
       commands: [ /^(.*?(\bfoo\b)[^$]*)$/i ]
     },
     {
-      name: 'bar',
+      name: "bar",
       response: function( context ){
-        console.log('bar, ending chain');
+        console.log("bar, ending chain");
         return false;
       },
       commands: [/^(.*?(\bbar\b)[^$]*)$/i]
     },
     {
-      name: 'commandNotFound',
+      name: "commandNotFound",
       response: function(){
-        console.log('command not found in chain');
+        console.log("command not found in chain");
         return responseList;
       },
       commands: [],
@@ -128,28 +128,28 @@ A Read Chain is used when you want to parse a message in detail. By returning th
 var responseList = 
 [
   {
-    name: 'readChainExample',
-    response: 'read',
+    name: "readChainExample",
+    response: "read",
     commands: [/^(.*?(\bshow\b)[^$]*)$/i],
     responseList:
     [
       {
-        name: 'spaceInvaders',
+        name: "spaceInvaders",
         response: function(context){
-          console.log('Space Invaders!');
+          console.log("Space Invaders!");
         },
         commands: [/^(.*?(\binvaders\b)[^$]*)$/i],
       },
       {
-        name: 'breakout',
+        name: "breakout",
         response: function(context){
-          console.log('Breakout!');
+          console.log("Breakout!");
           return false;
         },
         commands: [/^(.*?(\bbreakout\b)[^$]*)$/i],
       },
       {
-        name:'commandNotFound',
+        name:"commandNotFound",
         response: commandNotFound,
         commands: []
       }
@@ -181,7 +181,7 @@ Craneo’s parser expects a response named `’commandNotFound’` inside any re
 ```js
 var responseList = [ 
   { 
-   name: 'commandNotFound',
+   name: "commandNotFound",
    response: function(context){...},
    commands: []
   } 
@@ -190,4 +190,4 @@ var responseList = [
 
 <br><br><br>
 ##More coming soon
-Created and maintained by Paul Rada & Licensed under MIT
+Created and maintained by Paul Rada & Licensed under MIT 2016
