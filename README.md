@@ -38,7 +38,8 @@ var responseList = [
     response: helloWorld, 
     commands: []
   },
-    name: "commandNotFound"
+  {
+    name: "commandNotFound",
     response: function(){ console.log( "I didn’t get that.");  },
     commands: []
   }
