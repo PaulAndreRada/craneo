@@ -167,12 +167,12 @@ All responses will get passed a context argument containing the bot's variables 
 ```js
 // Make your own context variables
 var responseArgs  = {
-  userId : ‘RX78G’, 
-  name:  ‘Amuro Ray’
-  type: ‘Gundam’
+  userId : "RX78G", 
+  name:  "Amuro Ray"
+  type: "Gundam"
 }
 // Pass them to the response
-bot.listen( ‘Gundams fight!’, responseArgs );
+bot.listen( "Gundams fight!", responseArgs );
 ```
 <br>
 
