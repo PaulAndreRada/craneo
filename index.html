@@ -32,8 +32,9 @@
 Craneo is a node framework for building a simple chat bot.</p>
 
 <p><b>What it’s not:</b>
-Craneo is not an out-of-the-box, artificially intelligent bot; it is simply a framework for building a bot that responds to text-based commands with actions, prompts, or chat responses. In other words, here’s the skull, you supply the brain.
-</p>
+Craneo is not an out-of-the-box, artificially intelligent bot; it is simply a framework for building a bot that responds to text-based commands with actions, prompts, or chat responses. In other words, here’s the skull, you supply the brain.</p>
+
+<p></p>
 
 <h3>
 <a id="install" class="anchor" href="#install" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Install</h3>
@@ -56,7 +57,7 @@ First install Craneo then create an <code>bot.js</code> file in an empty directo
 <p>This function will be our bot’s response to the words ‘hello’ and ‘arise’. </p>
 
 <div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> <span class="pl-en">helloWorld</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(){ 
-  <span class="pl-en">console</span>.<span class="pl-c1">log</span>( ‘Hello world<span class="pl-k">!</span>’ ); 
+  <span class="pl-en">console</span>.<span class="pl-c1">log</span>( <span class="pl-s"><span class="pl-pds">"</span>Hello world!<span class="pl-pds">"</span></span> ); 
   <span class="pl-k">return</span> <span class="pl-c1">false</span>;
 }</pre></div>
 
@@ -65,16 +66,17 @@ First install Craneo then create an <code>bot.js</code> file in an empty directo
 <h3>
 <a id="create-a-response-list" class="anchor" href="#create-a-response-list" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Create a response list</h3>
 
-<p>In order to have the bot respond to multiple commands we will create a <code>responseList</code> array under our <code>helloWorld</code> function. This array will have a response object for our previously created <code>helloWorld</code> function and another function named <code>commandNotFound</code>. This will serve as our default response when no other response matches.</p>
+<p>In order to have the bot respond to multiple commands we will create a <code>responseList</code> array under our <code>helloWorld</code> function. This array will have a response object named <code>hello</code> and another function named <code>commandNotFound</code>. This will serve as our default response when no other response matches.</p>
 
 <div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> responseList <span class="pl-k">=</span> [
   {
-    name<span class="pl-k">:</span> ‘hello’,
+    name<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>hello<span class="pl-pds">"</span></span>,
     response<span class="pl-k">:</span> helloWorld, 
     commands<span class="pl-k">:</span> []
   },
-    name<span class="pl-k">:</span> ‘commandNotFound’
-    <span class="pl-en">response</span><span class="pl-k">:</span> <span class="pl-k">function</span>(){ <span class="pl-en">console</span>.<span class="pl-c1">log</span>( ‘I didn’t get that.’);  },
+  {
+    name<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>commandNotFound<span class="pl-pds">"</span></span>,
+    <span class="pl-en">response</span><span class="pl-k">:</span> <span class="pl-k">function</span>(){ <span class="pl-en">console</span>.<span class="pl-c1">log</span>( <span class="pl-s"><span class="pl-pds">"</span>I didn’t get that.<span class="pl-pds">"</span></span>);  },
     commands<span class="pl-k">:</span> []
   }
 ];</pre></div>
@@ -88,8 +90,8 @@ First install Craneo then create an <code>bot.js</code> file in an empty directo
 
 <div class="highlight highlight-source-js"><pre><span class="pl-c">// add your commands inside of the response named hello</span>
     commands<span class="pl-k">:</span> [ 
-<span class="pl-sr">      <span class="pl-pds">/</span><span class="pl-k">^</span>(<span class="pl-c1">.</span><span class="pl-k">*?</span>(<span class="pl-cce">\h</span>ello<span class="pl-k">\b</span>)<span class="pl-c1">[<span class="pl-k">^</span>$]</span><span class="pl-k">*</span>)<span class="pl-k">$</span><span class="pl-pds">/</span>i</span>
-<span class="pl-sr">      <span class="pl-pds">/</span><span class="pl-k">^</span>(<span class="pl-c1">.</span><span class="pl-k">*?</span>(<span class="pl-cce">\a</span>rise<span class="pl-k">\b</span>)<span class="pl-c1">[<span class="pl-k">^</span>$]</span><span class="pl-k">*</span>)<span class="pl-k">$</span><span class="pl-pds">/</span>i</span>
+<span class="pl-sr">      <span class="pl-pds">/</span><span class="pl-k">^</span>(<span class="pl-c1">.</span><span class="pl-k">*?</span>(<span class="pl-k">\b</span>hello<span class="pl-k">\b</span>)<span class="pl-c1">[<span class="pl-k">^</span>$]</span><span class="pl-k">*</span>)<span class="pl-k">$</span><span class="pl-pds">/</span>i</span>,
+<span class="pl-sr">      <span class="pl-pds">/</span><span class="pl-k">^</span>(<span class="pl-c1">.</span><span class="pl-k">*?</span>(<span class="pl-k">\b</span>arise<span class="pl-k">\b</span>)<span class="pl-c1">[<span class="pl-k">^</span>$]</span><span class="pl-k">*</span>)<span class="pl-k">$</span><span class="pl-pds">/</span>i</span>
     ]</pre></div>
 
 <p></p>
@@ -100,10 +102,10 @@ First install Craneo then create an <code>bot.js</code> file in an empty directo
 <p>Now that we built the bot’s commands and responses. 
 The only thing left to do is add them to an instance of Craneo and listen to any incoming messages.</p>
 
-<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> Craneo <span class="pl-k">=</span> <span class="pl-c1">require</span>(‘craneo’);
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> Craneo <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">"</span>craneo<span class="pl-pds">"</span></span>);
 <span class="pl-k">var</span> myBot <span class="pl-k">=</span> <span class="pl-en">Craneo</span>({ responseList<span class="pl-k">:</span> responseList }); 
 
-<span class="pl-smi">myBot</span>.<span class="pl-en">listen</span>( ‘arise’ );</pre></div>
+<span class="pl-smi">myBot</span>.<span class="pl-en">listen</span>( <span class="pl-s"><span class="pl-pds">"</span>arise<span class="pl-pds">"</span></span> );</pre></div>
 
 <p></p>
 
@@ -131,30 +133,30 @@ The only thing left to do is add them to an instance of Craneo and listen to any
 <div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> <span class="pl-en">responseChain</span> <span class="pl-k">=</span> <span class="pl-k">function</span>( <span class="pl-smi">context</span> ){
 
   <span class="pl-c">// do your response’s action</span>
-  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>A Response chain has started<span class="pl-pds">'</span></span> );
+  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">"</span>A Response chain has started<span class="pl-pds">"</span></span> );
 
   <span class="pl-c">// Return the following response objects to the bot in the same array format as the default response list</span>
   <span class="pl-k">var</span> responseList <span class="pl-k">=</span> [
     {
-      name<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>foo<span class="pl-pds">'</span></span>,
+      name<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>foo<span class="pl-pds">"</span></span>,
       <span class="pl-en">response</span><span class="pl-k">:</span> <span class="pl-k">function</span>( <span class="pl-smi">context</span> ){
-          <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>foo, ending chain<span class="pl-pds">'</span></span>);
+          <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">"</span>foo, ending chain<span class="pl-pds">"</span></span>);
           <span class="pl-k">return</span> <span class="pl-c1">false</span>;
       },
       commands<span class="pl-k">:</span> [<span class="pl-sr"> <span class="pl-pds">/</span><span class="pl-k">^</span>(<span class="pl-c1">.</span><span class="pl-k">*?</span>(<span class="pl-k">\b</span>foo<span class="pl-k">\b</span>)<span class="pl-c1">[<span class="pl-k">^</span>$]</span><span class="pl-k">*</span>)<span class="pl-k">$</span><span class="pl-pds">/</span>i</span> ]
     },
     {
-      name<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>bar<span class="pl-pds">'</span></span>,
+      name<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>bar<span class="pl-pds">"</span></span>,
       <span class="pl-en">response</span><span class="pl-k">:</span> <span class="pl-k">function</span>( <span class="pl-smi">context</span> ){
-        <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>bar, ending chain<span class="pl-pds">'</span></span>);
+        <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">"</span>bar, ending chain<span class="pl-pds">"</span></span>);
         <span class="pl-k">return</span> <span class="pl-c1">false</span>;
       },
       commands<span class="pl-k">:</span> [<span class="pl-sr"><span class="pl-pds">/</span><span class="pl-k">^</span>(<span class="pl-c1">.</span><span class="pl-k">*?</span>(<span class="pl-k">\b</span>bar<span class="pl-k">\b</span>)<span class="pl-c1">[<span class="pl-k">^</span>$]</span><span class="pl-k">*</span>)<span class="pl-k">$</span><span class="pl-pds">/</span>i</span>]
     },
     {
-      name<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>commandNotFound<span class="pl-pds">'</span></span>,
+      name<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>commandNotFound<span class="pl-pds">"</span></span>,
       <span class="pl-en">response</span><span class="pl-k">:</span> <span class="pl-k">function</span>(){
-        <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>command not found in chain<span class="pl-pds">'</span></span>);
+        <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">"</span>command not found in chain<span class="pl-pds">"</span></span>);
         <span class="pl-k">return</span> responseList;
       },
       commands<span class="pl-k">:</span> [],
@@ -176,28 +178,28 @@ The only thing left to do is add them to an instance of Craneo and listen to any
 <div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> responseList <span class="pl-k">=</span> 
 [
   {
-    name<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>readChainExample<span class="pl-pds">'</span></span>,
-    response<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>read<span class="pl-pds">'</span></span>,
+    name<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>readChainExample<span class="pl-pds">"</span></span>,
+    response<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>read<span class="pl-pds">"</span></span>,
     commands<span class="pl-k">:</span> [<span class="pl-sr"><span class="pl-pds">/</span><span class="pl-k">^</span>(<span class="pl-c1">.</span><span class="pl-k">*?</span>(<span class="pl-k">\b</span>show<span class="pl-k">\b</span>)<span class="pl-c1">[<span class="pl-k">^</span>$]</span><span class="pl-k">*</span>)<span class="pl-k">$</span><span class="pl-pds">/</span>i</span>],
     responseList<span class="pl-k">:</span>
     [
       {
-        name<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>spaceInvaders<span class="pl-pds">'</span></span>,
+        name<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>spaceInvaders<span class="pl-pds">"</span></span>,
         <span class="pl-en">response</span><span class="pl-k">:</span> <span class="pl-k">function</span>(<span class="pl-smi">context</span>){
-          <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>Space Invaders!<span class="pl-pds">'</span></span>);
+          <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">"</span>Space Invaders!<span class="pl-pds">"</span></span>);
         },
         commands<span class="pl-k">:</span> [<span class="pl-sr"><span class="pl-pds">/</span><span class="pl-k">^</span>(<span class="pl-c1">.</span><span class="pl-k">*?</span>(<span class="pl-k">\b</span>invaders<span class="pl-k">\b</span>)<span class="pl-c1">[<span class="pl-k">^</span>$]</span><span class="pl-k">*</span>)<span class="pl-k">$</span><span class="pl-pds">/</span>i</span>],
       },
       {
-        name<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>breakout<span class="pl-pds">'</span></span>,
+        name<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>breakout<span class="pl-pds">"</span></span>,
         <span class="pl-en">response</span><span class="pl-k">:</span> <span class="pl-k">function</span>(<span class="pl-smi">context</span>){
-          <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>Breakout!<span class="pl-pds">'</span></span>);
+          <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">"</span>Breakout!<span class="pl-pds">"</span></span>);
           <span class="pl-k">return</span> <span class="pl-c1">false</span>;
         },
         commands<span class="pl-k">:</span> [<span class="pl-sr"><span class="pl-pds">/</span><span class="pl-k">^</span>(<span class="pl-c1">.</span><span class="pl-k">*?</span>(<span class="pl-k">\b</span>breakout<span class="pl-k">\b</span>)<span class="pl-c1">[<span class="pl-k">^</span>$]</span><span class="pl-k">*</span>)<span class="pl-k">$</span><span class="pl-pds">/</span>i</span>],
       },
       {
-        name<span class="pl-k">:</span><span class="pl-s"><span class="pl-pds">'</span>commandNotFound<span class="pl-pds">'</span></span>,
+        name<span class="pl-k">:</span><span class="pl-s"><span class="pl-pds">"</span>commandNotFound<span class="pl-pds">"</span></span>,
         response<span class="pl-k">:</span> commandNotFound,
         commands<span class="pl-k">:</span> []
       }
@@ -218,12 +220,12 @@ The only thing left to do is add them to an instance of Craneo and listen to any
 
 <div class="highlight highlight-source-js"><pre><span class="pl-c">// Make your own context variables</span>
 <span class="pl-k">var</span> responseArgs  <span class="pl-k">=</span> {
-  userId <span class="pl-k">:</span> ‘<span class="pl-c1">RX78G</span>’, 
-  name<span class="pl-k">:</span>  ‘Amuro Ray’
-  type<span class="pl-k">:</span> ‘Gundam’
+  userId <span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>RX78G<span class="pl-pds">"</span></span>, 
+  name<span class="pl-k">:</span>  <span class="pl-s"><span class="pl-pds">"</span>Amuro Ray<span class="pl-pds">"</span></span>
+  type<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>Gundam<span class="pl-pds">"</span></span>
 }
 <span class="pl-c">// Pass them to the response</span>
-<span class="pl-smi">bot</span>.<span class="pl-en">listen</span>( ‘Gundams fight<span class="pl-k">!</span>’, responseArgs );</pre></div>
+<span class="pl-smi">bot</span>.<span class="pl-en">listen</span>( <span class="pl-s"><span class="pl-pds">"</span>Gundams fight!<span class="pl-pds">"</span></span>, responseArgs );</pre></div>
 
 <p><br></p>
 
@@ -234,7 +236,7 @@ The only thing left to do is add them to an instance of Craneo and listen to any
 
 <div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> responseList <span class="pl-k">=</span> [ 
   { 
-   name<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>commandNotFound<span class="pl-pds">'</span></span>,
+   name<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>commandNotFound<span class="pl-pds">"</span></span>,
    <span class="pl-en">response</span><span class="pl-k">:</span> <span class="pl-k">function</span>(<span class="pl-smi">context</span>){<span class="pl-k">...</span>},
    commands<span class="pl-k">:</span> []
   } 
@@ -245,7 +247,7 @@ The only thing left to do is add them to an instance of Craneo and listen to any
 <h2>
 <a id="more-coming-soon" class="anchor" href="#more-coming-soon" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>More coming soon</h2>
 
-<p>Created and maintained by Paul Rada &amp; Licensed under MIT</p>
+<p>Created and maintained by Paul Rada &amp; Licensed under MIT 2016</p>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/PaulAndreRada">PaulAndreRada</a></p>
