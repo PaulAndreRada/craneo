@@ -72,6 +72,10 @@ myBot.listen( "arise" );
 ### It’s alive, test it!
 Test out your hello world program by running `node app.js` on your terminal. The bot should respond with ‘Hello world!’ in your console. Thats it, you have created your first bot!
 
+</br></br>
+## Template
+Looking for a quick way to start your bot?
+<a href="https://github.com/PaulAndreRada/craneo-template.git">Download this template</a>
 
 </br></br>
 ## Docs
