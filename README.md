@@ -16,7 +16,7 @@ npm install craneo
 </br></br>
 
 ## Quick Start
-Build a hello world bot program in 3 simple steps then pass it to a Craneo instance.
+Build a hello world bot program in 3 steps then pass it to a Craneo instance.
 First install Craneo then create a `bot.js` file in an empty directory. 
 
 ###Create a response
