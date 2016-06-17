@@ -16,8 +16,8 @@ npm install craneo
 </br></br>
 
 ## Quick Start
-Let’s build a hello world bot program in 3 simple steps then pass it to a Craneo instance.
-First install Craneo then create an `bot.js` file in an empty directory. 
+Build a hello world bot program in 3 steps then pass it to a Craneo instance.
+First install Craneo then create a `bot.js` file in an empty directory. 
 
 ###Create a response
 This function will be our bot’s response to the words ‘hello’ and ‘arise’. 
@@ -72,6 +72,10 @@ myBot.listen( "arise" );
 ### It’s alive, test it!
 Test out your hello world program by running `node app.js` on your terminal. The bot should respond with ‘Hello world!’ in your console. Thats it, you have created your first bot!
 
+</br></br>
+## Template
+Looking for a quick way to start your bot?
+<a href="https://github.com/PaulAndreRada/craneo-template.git">Download this template</a>
 
 </br></br>
 ## Docs
@@ -167,12 +171,12 @@ All responses will get passed a context argument containing the bot's variables 
 ```js
 // Make your own context variables
 var responseArgs  = {
-  userId : ‘RX78G’, 
-  name:  ‘Amuro Ray’
-  type: ‘Gundam’
+  userId : "RX78G", 
+  name:  "Amuro Ray",
+  type: "Gundam"
 }
 // Pass them to the response
-bot.listen( ‘Gundams fight!’, responseArgs );
+bot.listen( "Gundams fight!", responseArgs );
 ```
 <br>
 
