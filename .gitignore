@@ -1,4 +1,5 @@
 *~
 *.tgz
 /app.js
+NOTES.md
 public/
