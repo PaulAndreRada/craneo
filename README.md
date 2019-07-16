@@ -19,7 +19,7 @@ npm install craneo
 Build a hello world bot program in 3 steps then pass it to a Craneo instance.
 First install Craneo then create a `bot.js` file in an empty directory. 
 
-###Create a response
+### Create a response
 This function will be our bot’s response to the words ‘hello’ and ‘arise’. 
 ```js
 var helloWorld = function(){ 
@@ -180,7 +180,7 @@ bot.listen( "Gundams fight!", responseArgs );
 ```
 <br>
 
-###Command Not Found
+### Command Not Found
 Craneo’s parser expects a response named `’commandNotFound’` inside any response list provided. This allows you to supply a custom function that will be triggered whenever the user adds a command that does not match with your response list’s options. This response should use the same formating as any other response object, but does not need any commands inside the commands array. 
 
 ```js
@@ -194,5 +194,5 @@ var responseList = [
 ```
 
 <br><br><br>
-##More coming soon
+## More coming soon
 Created and maintained by Paul Rada & Licensed under MIT 2016
