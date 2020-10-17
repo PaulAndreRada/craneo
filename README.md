@@ -69,7 +69,7 @@ myBot.listen( "arise" );
 ```
 </br>
 
-### It’s alive, test it!
+### Have a chat
 Test out your hello world program by running `node app.js` on your terminal. The bot should respond with ‘Hello world!’ in your console. Thats it, you have created your first bot!
 
 </br></br>
